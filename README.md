@@ -49,11 +49,13 @@ server.js - combine all server code together
 		words.js - CRUD for word
 		goals.js - CRUD for goals
 		progress.js - display stats, graphs
+		admin.js - 
 
 	/models
 		users.js - user model, with validating and setting passwords
 		words.js - word model
 		goals.js - goal model
+		guide.js -
 
 	/routes
 		routes.js
@@ -88,3 +90,32 @@ Guide
 	category
 
 ```
+
+## CLIENT SIDE ANGULAR
+
+### Folder Structure
+```
+/app_client
+	index.html -
+	core.js - 
+	/auth
+		auth.controller.js
+		auth.view.html
+	/word
+		word.controller.js
+		word.view.html
+	/goal
+		goal.controller.js
+		goal.view.html
+	/common
+		/directives
+			/navigation
+		/services
+			auth.service.js
+
+	/css
+	/js
+	/images
+
+```
+
