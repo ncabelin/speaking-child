@@ -12,11 +12,14 @@ module.exports.register = function(req, res) {
 	}
 
 	var user = new User();
-	user.name = req.body.username;
+	user.username = req.body.username;
+	user.dob = req.body.dob;
+	user.child_name = req.body.child_name;
 	user.email = req.body.email;
 	user.setPassword(req.body.password);
 	user.save(function(err) {
 		if (err) {
+			console.log(err);
 			return sendJSONresponse(res, 400, 'Error saving');
 		}
 		var token;
