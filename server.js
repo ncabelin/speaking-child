@@ -1,12 +1,13 @@
 // Speaking Child RESTful API with Token based auth
 
 var express = require('express'),
-		app = express();
+		app = express(),
 		mongoose = require('mongoose'),
 		morgan = require('morgan'),
 		bodyParser = require('body-parser'),
-		port = process.env.PORT || 8080;
-		ip = process.env.IP;
+		port = process.env.PORT || 8080,
+		ip = process.env.IP,
+		methodOverride = require('method-override'),
 		connection = require('./app_api/config/config'),
 		routesApi = require('./app_api/routes/routes'),
 		passport = require('passport'),
@@ -30,6 +31,7 @@ function requireHTTPS(req, res, next) {
 app.use(requireHTTPS);
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/app_client'));
 app.use(passport.initialize());
