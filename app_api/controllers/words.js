@@ -3,8 +3,8 @@ var Word = require('../models/words');
 var User = require('../models/users');
 
 module.exports.wordsRead = function(req, res) {
-	console.log(req.body);
-	User.findOne({ _id: req.body._id })
+	console.log(req.params.id);
+	User.findOne({ _id: req.params.id })
 		.populate('words')
 		.exec(function(err, user) {
 			if (err) { 

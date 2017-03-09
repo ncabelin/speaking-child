@@ -2,7 +2,8 @@
 <div class="container" ng-controller="wordCtrl as vm">
 	<div class="row">
 		<div class="col-md-12">
-			<h1>Words</h1>
+			<div class="alert alert-danger" ng-show="vm.alertMsg">{{ vm.alertMsg }}</div>
+			<h1>{{ vm.words.length }} Words</h1>
 			<button class="btn btn-primary" ng-click="vm.showAddForm = true">Add Word</button>
 		</div>
 	</div>
@@ -25,14 +26,16 @@
 					<label>Date added</label>
 					<input type="date" ng-model="vm.new.date_added" class="form-control">
 				</div>
-				<button type="submit" class="btn btn-success">Submit</button>
+				<button type="submit" class="btn btn-success" ng-click="vm.showAddForm = false; vm.alertMsg = false">Submit</button>
+				<a href="" class="btn btn-primary" ng-click="vm.showAddForm = false">Cancel</a>
 			</form>
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-3" ng-repeat="w in vm.words">
+		<br>
+		<div class="col-md-3" ng-repeat="w in vm.words | orderBy : 'word' ">
 			<div class="well">
-				{{ w.word }}<br>
+				<h3>{{ w.word }}</h3><br>
 				{{ w.sound }}
 			</div>
 		</div>
