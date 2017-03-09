@@ -16,15 +16,15 @@ router.post('/api/login', ctrlAuth.login);
 router.post('/api/register', ctrlAuth.register);
 
 // Word routes
-router.get('/api/words', ctrlWord.wordsRead);
-router.post('/api/word/new', auth, ctrlWord.addWord);
-router.post('/api/word/edit', auth, ctrlWord.editWord);
-router.post('/api/word/delete', auth, ctrlWord.deleteWord);
+router.get('/api/words', auth, ctrlWord.wordsRead);
+router.post('/api/word', auth, ctrlWord.addWord);
+router.put('/api/word', auth, ctrlWord.editWord);
+router.delete('/api/word', auth, ctrlWord.deleteWord);
 
 // Goal routes
-router.get('/api/goals', ctrlGoal.goalsRead);
-router.post('/api/goal/new', auth, ctrlGoal.addGoal);
-router.post('/api/goal/edit', auth, ctrlGoal.editGoal);
-router.post('/api/goal/delete', auth, ctrlGoal.deleteGoal);
+router.get('/api/goals', auth, ctrlGoal.goalsRead);
+router.post('/api/goal', auth, ctrlGoal.addGoal);
+router.put('/api/goal', auth, ctrlGoal.editGoal);
+router.delete('/api/goal', auth, ctrlGoal.deleteGoal);
 
 module.exports = router;

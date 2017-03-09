@@ -19,7 +19,7 @@
 		vm.onSubmit = function() {
 			console.log('Registration submitting');
 			if (vm.credentials.password !== vm.credentials.re_password) {
-				return vm.alertMsg = 'Password must match Re-enter password field'
+				return vm.alertMsg = 'Password must match Re-enter password field';
 			}
 
 			if (vm.credentials.username && vm.credentials.email && vm.credentials.password) {

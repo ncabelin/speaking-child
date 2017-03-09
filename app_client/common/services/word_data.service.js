@@ -11,8 +11,9 @@
 			}
 		};
 
-		var readWords = function() {
-			return $http.get('/api/words', authObj);
+		var readWords = function(obj) {
+			console.log(authObj);
+			return $http.get('/api/words', obj, authObj);
 		};
 
 		var addWord = function(obj) {

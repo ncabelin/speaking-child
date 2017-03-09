@@ -3,7 +3,8 @@ var Word = require('../models/words');
 var User = require('../models/users');
 
 module.exports.wordsRead = function(req, res) {
-	User.findOne({ username: req.body.username })
+	console.log(req.body);
+	User.findOne({ _id: req.body._id })
 		.populate('words')
 		.exec(function(err, user) {
 			if (err) { 
@@ -22,7 +23,7 @@ module.exports.addWord = function(req, res) {
 		category: req.body.category,
 		date_added: new Date
 	}, function(err, word) {
-		User.findOne({ _id: req.body._id }, function(err, foundUser) {
+		User.findOne({ _id: req.body.user_id }, function(err, foundUser) {
 			if (err) { 
 				return res.status(400); 
 			} else {
@@ -30,7 +31,7 @@ module.exports.addWord = function(req, res) {
 				foundUser.save(function(err, user) {
 					if (err) { return res.status(400) }
 					else {
-						res.json({'message': 'Word saved'});
+						res.json(word);
 					}
 				});
 			}

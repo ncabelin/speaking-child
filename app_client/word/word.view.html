@@ -1,0 +1,40 @@
+<navigation></navigation>
+<div class="container" ng-controller="wordCtrl as vm">
+	<div class="row">
+		<div class="col-md-12">
+			<h1>Words</h1>
+			<button class="btn btn-primary" ng-click="vm.showAddForm = true">Add Word</button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+			<form ng-submit="vm.addWord(vm.new)" ng-show="vm.showAddForm">
+				<div class="form-group">
+					<label>Word</label>
+					<input type="text" ng-model="vm.new.word" class="form-control">
+				</div>
+				<div class="form-group">
+					<label>Sound</label>
+					<input type="text" ng-model="vm.new.sound" class="form-control">
+				</div>
+				<div class="form-group">
+					<label>Category</label>
+					<input type="text" ng-model="vm.new.category" class="form-control">
+				</div>
+				<div class="form-group">
+					<label>Date added</label>
+					<input type="date" ng-model="vm.new.date_added" class="form-control">
+				</div>
+				<button type="submit" class="btn btn-success">Submit</button>
+			</form>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3" ng-repeat="w in vm.words">
+			<div class="well">
+				{{ w.word }}<br>
+				{{ w.sound }}
+			</div>
+		</div>
+	</div>
+</div>
