@@ -3,7 +3,11 @@ var Word = require('../models/words');
 var User = require('../models/users');
 
 module.exports.wordsRead = function(req, res) {
-	console.log(req.params.id);
+	if (!req.payload._id) {
+		return res.status(401).json({
+			'message': 'Unauthorized Error: private'
+		});
+	}
 	User.findOne({ _id: req.params.id })
 		.populate('words')
 		.exec(function(err, user) {
@@ -17,6 +21,11 @@ module.exports.wordsRead = function(req, res) {
 };
 
 module.exports.addWord = function(req, res) {
+	if (!req.payload._id) {
+		return res.status(401).json({
+			'message': 'Unauthorized Error: private'
+		});
+	}
 	Word.create({
 		word: req.body.word,
 		sound: req.body.sound,
@@ -41,6 +50,11 @@ module.exports.addWord = function(req, res) {
 };
 
 module.exports.editWord = function(req, res) {
+	if (!req.payload._id) {
+		return res.status(401).json({
+			'message': 'Unauthorized Error: private'
+		});
+	}
 	console.log(req.body);
 	Word.findById({ _id: req.body._id }, function(err, word) {
 		if (err) { 
@@ -64,7 +78,12 @@ module.exports.editWord = function(req, res) {
 };
 
 module.exports.deleteWord = function(req, res) {
-	Word.remove({ _id: req.body._id }, function(err) {
+	if (!req.payload._id) {
+		return res.status(401).json({
+			'message': 'Unauthorized Error: private'
+		});
+	}
+	Word.remove({ _id: req.params.id }, function(err) {
 		if (err) {
 			res.status(400)
 				.json({'message': 'Word not deleted'});

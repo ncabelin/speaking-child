@@ -24,8 +24,8 @@
 			return $http.put('/api/word', obj, authObj);
 		};
 
-		var deleteWord = function(obj) {
-			return $http.delete('/api/word', obj, authObj);
+		var deleteWord = function(id) {
+			return $http.delete('/api/word/' + id, authObj);
 		};
 
 

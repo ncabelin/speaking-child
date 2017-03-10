@@ -16,13 +16,13 @@ router.post('/api/login', ctrlAuth.login);
 router.post('/api/register', ctrlAuth.register);
 
 // Word routes
-router.get('/api/words/:id', ctrlWord.wordsRead);
+router.get('/api/words/:id', auth, ctrlWord.wordsRead);
 router.post('/api/word', auth, ctrlWord.addWord);
 router.put('/api/word', auth, ctrlWord.editWord);
-router.delete('/api/word', auth, ctrlWord.deleteWord);
+router.delete('/api/word/:id', auth, ctrlWord.deleteWord);
 
 // Goal routes
-router.get('/api/goals', ctrlGoal.goalsRead);
+router.get('/api/goals', auth, ctrlGoal.goalsRead);
 router.post('/api/goal', auth, ctrlGoal.addGoal);
 router.put('/api/goal', auth, ctrlGoal.editGoal);
 router.delete('/api/goal', auth, ctrlGoal.deleteGoal);

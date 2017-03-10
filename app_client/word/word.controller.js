@@ -15,7 +15,6 @@
 		};
 		vm.showAddForm = false;
 		vm.words = [];
-		vm.words_date = [];
 
 		wordData.readWords(auth.currentUser().user_id)
 			.then(function(result) {
@@ -57,7 +56,7 @@
 						date_added: new Date
 					};
 				}, function(err) {
-					vm.alertMsg = err;
+					vm.alertMsg = 'Error adding';
 					console.log(err);
 				});
 		}
@@ -67,8 +66,18 @@
 				.then(function(result) {
 					console.log(result.data);
 				}, function(err) {
-					vm.alertMsg = 'Error editing:';
+					vm.alertMsg = 'Error editing';
 				});
 		};
+
+		vm.deleteWord = function(obj) {
+			wordData.deleteWord(obj._id)
+				.then(function(result) {
+					var index = vm.words.indexOf(obj);
+					vm.words.splice(index, 1);
+				}, function(err) {
+					vm.alertMsg = 'Error deleting';
+				});
+		}
 	}
 })();
