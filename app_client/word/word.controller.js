@@ -42,12 +42,16 @@
 
 			// auto-capitalize word and sound
 			vm.new.word = vm.new.word[0].toUpperCase() + vm.new.word.slice(1);
-			vm.new.sound = vm.new.sound[0].toUpperCase() + vm.new.word.slice(1);
+			vm.new.sound = vm.new.sound[0].toUpperCase() + vm.new.sound.slice(1);
 
 			wordData.addWord(vm.new)
 				.then(function(result) {
 					console.log(result.data);
+					// reformat date for ng-model rendering
+					result.data.date_added = new Date(result.data.date_added);
 					vm.words.push(result.data);
+
+					// reset add word form
 					vm.new = {
 						user_id: auth.currentUser().user_id,
 						word: '',
