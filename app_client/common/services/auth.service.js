@@ -50,7 +50,7 @@
 			return $http.post('/api/login', user);
 		};
 
-		logout = function() {
+		var logout = function() {
 			console.log('logging out');
 			$window.localStorage.removeItem('mean-token');
 			$location.path('login');

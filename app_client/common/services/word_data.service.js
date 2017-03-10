@@ -5,27 +5,28 @@
 
 	wordData.$inject = ['$http', 'auth'];
 	function wordData($http, auth) {
-		var authObj = {
-			headers: {
-				Authorization: 'Bearer ' + auth.getToken()
-			}
-		};
+		var getAuthObj = function() {
+			return {
+				headers: {
+					Authorization: 'Bearer ' + auth.getToken()
+				}
+			};
+		}
 
-		var readWords = function(id) {
-			console.log(authObj);
-			return $http.get('/api/words/' + id, authObj);
+		var readWords = function() {
+			return $http.get('/api/words/', getAuthObj());
 		};
 
 		var addWord = function(obj) {
-			return $http.post('/api/word', obj, authObj);
+			return $http.post('/api/word', obj, getAuthObj());
 		};
 
 		var editWord = function(obj) {
-			return $http.put('/api/word', obj, authObj);
+			return $http.put('/api/word', obj, getAuthObj());
 		};
 
 		var deleteWord = function(id) {
-			return $http.delete('/api/word/' + id, authObj);
+			return $http.delete('/api/word/' + id, getAuthObj());
 		};
 
 

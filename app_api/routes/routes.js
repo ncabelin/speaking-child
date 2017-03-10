@@ -16,7 +16,7 @@ router.post('/api/login', ctrlAuth.login);
 router.post('/api/register', ctrlAuth.register);
 
 // Word routes
-router.get('/api/words/:id', auth, ctrlWord.wordsRead);
+router.get('/api/words', auth, ctrlWord.wordsRead);
 router.post('/api/word', auth, ctrlWord.addWord);
 router.put('/api/word', auth, ctrlWord.editWord);
 router.delete('/api/word/:id', auth, ctrlWord.deleteWord);

@@ -8,7 +8,7 @@ module.exports.wordsRead = function(req, res) {
 			'message': 'Unauthorized Error: private'
 		});
 	}
-	User.findOne({ _id: req.params.id })
+	User.findOne({ _id: req.payload._id })
 		.populate('words')
 		.exec(function(err, user) {
 			if (err) { 
