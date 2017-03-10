@@ -34,9 +34,32 @@
 	<div class="row">
 		<br>
 		<div class="col-md-3" ng-repeat="w in vm.words | orderBy : 'word' ">
-			<div class="well">
+			<div class="well" ng-click="editWord = true" ng-hide="editWord" ng-init="editWord = false">
 				<h3>{{ w.word }}</h3><br>
 				{{ w.sound }}
+			</div>
+			<div class="well" ng-show="editWord">
+				<form class="form" ng-submit="vm.editWord(w)">
+					<div class="form-group">
+						<label>Word</label>
+						<input class="form-control" ng-model="w.word" type="text">
+					</div>
+					<div class="form-group">
+						<label>Sound</label>
+						<input class="form-control" ng-model="w.sound" type="text">
+					</div>
+					<div class="form-group">
+						<label>Category</label>
+						<input class="form-control" ng-model="w.category" type="text">
+					</div>
+					<div class="form-group">
+						<label>Date</label>
+						<input type="date" class="form-control" ng-model="w.date_added">
+					</div>
+					<button class="btn btn-success" ng-click="editWord = false">OK</button>
+					<a href="" class="btn btn-primary" ng-click="editWord = false">CANCEL</a>
+					<a href="" class="btn btn-danger" ng-click="vm.delete(w)">DELETE</a>
+				</form>
 			</div>
 		</div>
 	</div>

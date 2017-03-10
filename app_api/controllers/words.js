@@ -41,6 +41,7 @@ module.exports.addWord = function(req, res) {
 };
 
 module.exports.editWord = function(req, res) {
+	console.log(req.body);
 	Word.findById({ _id: req.body._id }, function(err, word) {
 		if (err) { 
 			return res.status(400)
@@ -50,13 +51,14 @@ module.exports.editWord = function(req, res) {
 		word.word = req.body.word;
 		word.sound = req.body.sound;
 		word.category = req.body.category;
+		word.date_added = new Date(req.body.date_added);
 		word.save(function(err, word) {
 			if (err) { 
 				return res.status(400)
 					.json({'message': 'Word not saved'});
 			}
 
-			res.json({'message': 'Word edited'});
+			res.json(word);
 		})
 	});
 };
