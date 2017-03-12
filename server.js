@@ -8,12 +8,17 @@ var express = require('express'),
 		port = process.env.PORT || 8080,
 		ip = process.env.IP,
 		methodOverride = require('method-override'),
-		connection = require('./app_api/config/config'),
+		config = require('./app_api/config/config'),
 		routesApi = require('./app_api/routes/routes'),
-		passport = require('passport'),
-		config = require('./app_api/config/passport');
+		passport = require('passport');
 
-mongoose.connect(connection().mongodb_uri);
+require('./app_api/config/passport');
+
+// take care of deprecated warning
+mongoose.Promise = global.Promise;
+
+// mongoose.connect(config().mongodb_uri);
+mongoose.connect('mongodb://localhost/speaking_child');
 
 function requireHTTPS(req, res, next) {
 	// forces https on web browsers where 
