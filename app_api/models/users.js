@@ -3,6 +3,7 @@ var crypto = require('crypto');
 var jwt = require('jsonwebtoken');
 var config = require('../config/config');
 var Word = require('../models/words');
+var Phrase = require('../models/phrase');
 var Goal = require('../models/goals');
 
 var userSchema = new mongoose.Schema({
@@ -14,6 +15,12 @@ var userSchema = new mongoose.Schema({
 		{
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Word'
+		}
+	],
+	phrases: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Phrase'
 		}
 	],
 	goals: [
@@ -41,6 +48,8 @@ userSchema.methods.validPassword = function(password) {
 userSchema.methods.generateJwt = function() {
 	var expiry = new Date();
 	expiry.setDate(expiry.getDate() + 7);
+	console.log(expiry);
+	console.log(parseInt(expiry.getTime() / 1000));
 	return jwt.sign({
 		_id: this._id,
 		username: this.username,

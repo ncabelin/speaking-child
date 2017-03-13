@@ -21,7 +21,7 @@
 					auth.saveToken(result.data.token);
 					$location.path('word');
 				}, function(err) {
-					vm.alertMsg = err.data.message;
+					vm.alertMsg = 'Invalid username and/or password';
 				});
 		}
 

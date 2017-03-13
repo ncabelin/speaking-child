@@ -29,12 +29,32 @@
 			return $http.delete('/api/word/' + id, getAuthObj());
 		};
 
+		var readPhrases = function() {
+			return $http.get('/api/phrases', getAuthObj());
+		};
+
+		var addPhrase = function(obj) {
+			return $http.post('/api/phrase', obj, getAuthObj());
+		};
+
+		var editPhrase = function(obj) {
+			return $http.put('/api/phrase', obj, getAuthObj());
+		};
+
+		var deletePhrase = function(id) {
+			return $http.delete('/api/phrase/' + id, getAuthObj());
+		};
+
 
 		return {
 			readWords: readWords,
 			addWord: addWord,
 			editWord: editWord,
-			deleteWord: deleteWord
+			deleteWord: deleteWord,
+			readPhrases: readPhrases,
+			addPhrase: addPhrase,
+			editPhrase: editPhrase,
+			deletePhrase: deletePhrase
 		}
 	}
 })();

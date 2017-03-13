@@ -1,22 +1,22 @@
 <navigation></navigation>
 <div class="container" ng-controller="wordCtrl as vm">
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-12 text-center">
 			<div class="alert alert-danger" ng-show="vm.alertMsg">{{ vm.alertMsg }}</div>
-			<h1>{{ vm.single_word }} Single Words, {{ vm.phrases }} Phrases (2+ words)</h1>
-			<button class="btn btn-primary" ng-click="vm.showAddForm = true">Add Word</button>
+			<button class="btn btn-primary btn-lg" ng-click="vm.showAddForm = true" ng-hide="vm.showAddForm">ADD</button>
 		</div>
 	</div>
+
 	<div class="row">
 		<div class="col-md-6 col-md-offset-3">
-			<form ng-submit="vm.addWord(vm.new)" ng-show="vm.showAddForm">
+			<form ng-submit="vm.addWord(vm.new.word)" ng-show="vm.showAddForm" class="well form">
 				<div class="form-group">
 					<label>Word</label>
-					<input type="text" ng-model="vm.new.word" class="form-control">
+					<input type="text" ng-model="vm.new.word" class="form-control" placeholder="Enter 2 or more words to save as phrase">
 				</div>
 				<div class="form-group">
 					<label>Sound</label>
-					<input type="text" ng-model="vm.new.sound" class="form-control">
+					<input type="text" ng-model="vm.new.sound" class="form-control" placeholder="(Leave blank to copy word)">
 				</div>
 				<div class="form-group">
 					<label>Category</label>
@@ -31,34 +31,91 @@
 			</form>
 		</div>
 	</div>
+
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+			<form ng-submit="vm.editWord(vm.edit)" ng-show="vm.showEditForm" class="well form">
+				<div class="form-group">
+					<label>Word</label>
+					<input type="text" ng-model="vm.edit.word" class="form-control" placeholder="Enter 2 or more words to save as phrase">
+				</div>
+				<div class="form-group">
+					<label>Sound</label>
+					<input type="text" ng-model="vm.edit.sound" class="form-control" placeholder="(Leave blank to copy word)">
+				</div>
+				<div class="form-group">
+					<label>Category</label>
+					<input type="text" ng-model="vm.edit.category" class="form-control">
+				</div>
+				<div class="form-group">
+					<label>Date added</label>
+					<input type="date" ng-model="vm.edit.date_added" class="form-control">
+				</div>
+				<button type="submit" class="btn btn-success" ng-click="vm.showEditForm = false; vm.alertMsg = false">Submit</button>
+				<a href="" class="btn btn-primary" ng-click="vm.showEditForm = false">Cancel</a>
+				<a href="" class="btn btn-danger" ng-click="vm.showEditForm = false; vm.alertMsg = false; vm.deleteWord(vm.edit)">Delete</a>
+			</form>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<h3>{{ vm.words.length }} WORDS</h3>
+			<br>
+			<table class="table table-bordered table-responsive table-hover" ng-hide="vm.showEditForm">
+				<thead>
+					<tr>
+						<td><strong>Word</strong></td>
+						<td><strong>Sound</strong></td>
+						<td><strong>Category</strong></td>
+						<td><strong>Date</strong></td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="w in vm.words | orderBy : 'word' " ng-click="vm.showEditForm = true; vm.editForm(w)">
+						<td>{{ w.word }}</td>
+						<td>{{ w.sound }}</td>
+						<td>{{ w.category }}</td>
+						<td>{{ w.date_added | date }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<hr>
+	<div class="row">
+		<div class="col-md-12">
+			<h3>{{ vm.phrases.length }} PHRASES</h3>
+		</div>
+	</div>
 	<div class="row">
 		<br>
-		<div class="col-md-3" ng-repeat="w in vm.words | orderBy : 'word' ">
-			<div class="well" ng-click="editWord = true" ng-hide="editWord" ng-init="editWord = false">
-				<h3>{{ w.word }}</h3><br>
-				{{ w.sound }}
+		<div class="col-md-3" ng-repeat="p in vm.phrases | orderBy : 'phrase' ">
+			<div class="well phrases" ng-click="editPhrase = true" ng-hide="editPhrase" ng-init="editPhrase = false">
+				<h3>{{ p.phrase }}</h3><br>
+				{{ p.sound }}
 			</div>
-			<div class="well" ng-show="editWord">
-				<form class="form" ng-submit="vm.editWord(w)">
+			<div class="well" ng-show="editPhrase">
+				<form class="form" ng-submit="vm.editPhrase(p)">
 					<div class="form-group">
-						<label>Word</label>
-						<input class="form-control" ng-model="w.word" type="text">
+						<label>Phrase</label>
+						<input class="form-control" ng-model="p.phrase" type="text">
 					</div>
 					<div class="form-group">
 						<label>Sound</label>
-						<input class="form-control" ng-model="w.sound" type="text">
+						<input class="form-control" ng-model="p.sound" type="text">
 					</div>
 					<div class="form-group">
 						<label>Category</label>
-						<input class="form-control" ng-model="w.category" type="text">
+						<input class="form-control" ng-model="p.category" type="text">
 					</div>
 					<div class="form-group">
 						<label>Date</label>
-						<input type="date" class="form-control" ng-model="w.date_added">
+						<input type="date" class="form-control" ng-model="p.date_added">
 					</div>
-					<button class="btn btn-success" ng-click="editWord = false">OK</button>
-					<a href="" class="btn btn-primary" ng-click="editWord = false">CANCEL</a>
-					<a href="" class="btn btn-danger" ng-click="vm.deleteWord(w)">DELETE</a>
+					<button class="btn btn-success" ng-click="editPhrase = false">OK</button>
+					<a href="" class="btn btn-primary" ng-click="editPhrase = false">CANCEL</a>
+					<a href="" class="btn btn-danger" ng-click="vm.deletePhrase(p)">DELETE</a>
 				</form>
 			</div>
 		</div>

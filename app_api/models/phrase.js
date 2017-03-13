@@ -5,9 +5,8 @@ var phraseSchema = new mongoose.Schema({
 		id: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'User'
-		},
-		username: String
-	}
+		}
+	},
 	sound: String,
 	category: String,
 	date_added: Date

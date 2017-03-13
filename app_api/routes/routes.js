@@ -21,6 +21,12 @@ router.post('/api/word', auth, ctrlWord.addWord);
 router.put('/api/word', auth, ctrlWord.editWord);
 router.delete('/api/word/:id', auth, ctrlWord.deleteWord);
 
+// Phrase routes
+router.get('/api/phrases', auth, ctrlWord.phrasesRead);
+router.post('/api/phrase', auth, ctrlWord.addPhrase);
+router.put('/api/phrase', auth, ctrlWord.editPhrase);
+router.delete('/api/phrase/:id', auth, ctrlWord.deletePhrase);
+
 // Goal routes
 router.get('/api/goals', auth, ctrlGoal.goalsRead);
 router.post('/api/goal', auth, ctrlGoal.addGoal);
