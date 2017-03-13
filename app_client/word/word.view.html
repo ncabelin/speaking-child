@@ -6,6 +6,12 @@
 			<button class="btn btn-primary btn-lg" ng-click="vm.showAddForm = true" ng-hide="vm.showAddForm">ADD</button>
 		</div>
 	</div>
+	<br>
+	<div class="btn-group btn-group-justified">
+		<a class="btn btn-default" ng-click="vm.showPane('word')">Words</a>
+		<a class="btn btn-default" ng-click="vm.showPane('phrase')">Phrases</a>
+		<a class="btn btn-default" ng-click="vm.showPane('stat')">Statistics</a>
+	</div><br>
 
 	<div class="row">
 		<div class="col-md-6 col-md-offset-3">
@@ -60,82 +66,70 @@
 
 	<div>
 
-	  <!-- Nav tabs -->
-	  <ul class="nav nav-tabs" role="tablist">
-	    <li role="presentation" class="active"><a href="#words" aria-controls="words" role="tab" data-toggle="tab">Words</a></li>
-	    <li role="presentation"><a href="#phrases" aria-controls="phrases" role="tab" data-toggle="tab">Phrases</a></li>
-	    <li role="presentation"><a href="#statistics" aria-controls="statistics" role="tab" data-toggle="tab">Statistics</a></li>
-	  </ul>
-
-	  <!-- Tab panes -->
-	  <div class="tab-content">
-	    <div role="tabpanel" class="tab-pane active" id="words">
-	    	<div class="row">
-					<div class="col-md-12">
-						<h3>{{ vm.words.length }} WORDS</h3>
-						<br>
-						<table class="table table-bordered table-responsive table-hover" ng-hide="vm.showEditForm">
-							<thead>
-								<tr>
-									<td><strong>Word</strong></td>
-									<td><strong>Sound</strong></td>
-									<td><strong>Category</strong></td>
-									<td><strong>Date</strong></td>
-								</tr>
-							</thead>
-							<tbody>
-								<tr ng-repeat="w in vm.words | orderBy : 'word' " ng-click="vm.showEditForm = true; vm.editForm(w)">
-									<td>{{ w.word }}</td>
-									<td>{{ w.sound }}</td>
-									<td>{{ w.category }}</td>
-									<td>{{ w.date_added | date }}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-	    </div>
-	    <div role="tabpanel" class="tab-pane" id="phrases">
-	    	<div class="row">
+    	<div class="row" ng-show="vm.showWord">
+				<div class="col-md-12">
+					<h3>{{ vm.words.length }} WORDS</h3>
 					<br>
-					<div class="col-md-12">
-						<h3>{{ vm.phrases.length }} PHRASES</h3>
+					<table class="table table-bordered table-responsive table-hover" ng-hide="vm.showEditForm">
+						<thead>
+							<tr>
+								<td><strong>Word</strong></td>
+								<td><strong>Sound</strong></td>
+								<td><strong>Category</strong></td>
+								<td><strong>Date</strong></td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="w in vm.words | orderBy : 'word' " ng-click="vm.showEditForm = true; vm.editForm(w)">
+								<td>{{ w.word }}</td>
+								<td>{{ w.sound }}</td>
+								<td>{{ w.category }}</td>
+								<td>{{ w.date_added | date }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+    	<div class="row" ng-show="vm.showPhrase">
+				<br>
+				<div class="col-md-12">
+					<h3>{{ vm.phrases.length }} PHRASES</h3>
+				</div>
+				<div class="col-md-3" ng-repeat="p in vm.phrases | orderBy : 'phrase' ">
+					<div class="well phrases" ng-click="editPhrase = true" ng-hide="editPhrase" ng-init="editPhrase = false">
+						<h3>{{ p.phrase }}</h3><br>
+						{{ p.sound }}
 					</div>
-					<div class="col-md-3" ng-repeat="p in vm.phrases | orderBy : 'phrase' ">
-						<div class="well phrases" ng-click="editPhrase = true" ng-hide="editPhrase" ng-init="editPhrase = false">
-							<h3>{{ p.phrase }}</h3><br>
-							{{ p.sound }}
-						</div>
-						<div class="well" ng-show="editPhrase">
-							<form class="form" ng-submit="vm.editPhrase(p)">
-								<div class="form-group">
-									<label>Phrase</label>
-									<input class="form-control" ng-model="p.phrase" type="text">
-								</div>
-								<div class="form-group">
-									<label>Sound</label>
-									<input class="form-control" ng-model="p.sound" type="text">
-								</div>
-								<div class="form-group">
-									<label>Category</label>
-									<input class="form-control" ng-model="p.category" type="text">
-								</div>
-								<div class="form-group">
-									<label>Date</label>
-									<input type="date" class="form-control" ng-model="p.date_added">
-								</div>
-								<button class="btn btn-success" ng-click="editPhrase = false">OK</button>
-								<a href="" class="btn btn-primary" ng-click="editPhrase = false">CANCEL</a>
-								<a href="" class="btn btn-danger" ng-click="vm.deletePhrase(p)">DELETE</a>
-							</form>
-						</div>
+					<div class="well" ng-show="editPhrase">
+						<form class="form" ng-submit="vm.editPhrase(p)">
+							<div class="form-group">
+								<label>Phrase</label>
+								<input class="form-control" ng-model="p.phrase" type="text">
+							</div>
+							<div class="form-group">
+								<label>Sound</label>
+								<input class="form-control" ng-model="p.sound" type="text">
+							</div>
+							<div class="form-group">
+								<label>Category</label>
+								<input class="form-control" ng-model="p.category" type="text">
+							</div>
+							<div class="form-group">
+								<label>Date</label>
+								<input type="date" class="form-control" ng-model="p.date_added">
+							</div>
+							<button class="btn btn-success" ng-click="editPhrase = false">OK</button>
+							<a href="" class="btn btn-primary" ng-click="editPhrase = false">CANCEL</a>
+							<a href="" class="btn btn-danger" ng-click="vm.deletePhrase(p)">DELETE</a>
+						</form>
 					</div>
 				</div>
-	    </div>
-	    <div role="tabpanel" class="tab-pane" id="statistics">
-	    	<!-- Empty for now -->
-	    </div>
-	  </div>
+			</div>
+
+			<div class="row" ng-show="vm.showStat">
+				<h3>Statistics</h3>
+			</div>
 
 	</div>
 </div>

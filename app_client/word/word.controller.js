@@ -20,7 +20,22 @@
 		vm.words = [];
 		vm.phrases = [];
 		vm.wordLookUp = {};
-		vm.phraseLookUp = {};
+		vm.showPane = function(pane) {
+			if (pane == 'word') {
+				vm.showPhrase = false;
+				vm.showStat = false;
+				vm.showWord = true;
+			} else if (pane == 'phrase') {
+				vm.showPhrase = true;
+				vm.showStat = false;
+				vm.showWord = false;
+			} else {
+				vm.showPhrase = false;
+				vm.showStat = true;
+				vm.showWord = false;
+			}
+		}
+
 		var countWords = function(word) {
 			var word_arr = word.split(' '),
 					length = word_arr.length;
@@ -63,8 +78,6 @@
 				} else {
 					vm.phrases = [];
 				}
-				// create lookup of array index for phrases
-				vm.phraseLookUp = createLookUp(vm.phrases);
 			}, function(err) {
 				vm.alertMsg += 'Error :' + err;
 				console.log(err);
@@ -105,7 +118,6 @@
 						// reformat date for ng-model rendering
 						result.data.date_added = new Date(result.data.date_added);
 						vm.phrases.push(result.data);
-						vm.phraseLookUp[result.data._id] = vm.phrases.length;
 						// reset add word form
 						vm.new = resetAddForm();
 					}, function(err) {
