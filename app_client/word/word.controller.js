@@ -20,6 +20,7 @@
 		vm.words = [];
 		vm.phrases = [];
 		vm.wordLookUp = {};
+		vm.showWord = true;
 		vm.showPane = function(pane) {
 			if (pane == 'word') {
 				vm.showPhrase = false;
@@ -141,6 +142,7 @@
 					result.data.date_added = new Date(result.data.date_added);
 					vm.words.push(result.data);
 					vm.wordLookUp[result.data._id] = vm.words.length;
+					console.log(vm.wordLookUp);
 					// reset add word form
 					vm.new = resetAddForm();
 				}, function(err) {
@@ -160,13 +162,11 @@
 			}
 		}
 
-		vm.editWord = function(obj) {
+		vm.editWord = function(obj, index) {
 			console.log(obj);
-			wordData.editWord(obj)
+			wordData.editWord(vm.words[index])
 				.then(function(result) {
-					var index = vm.wordLookUp[result.data._id];
-					console.log(index);
-					vm.words[index] = result.data;
+					vm.words[index] = obj;
 				}, function(err) {
 					vm.alertMsg = 'Error editing';
 				});
@@ -181,10 +181,10 @@
 				});
 		};
 
-		vm.deleteWord = function(obj) {
-			wordData.deleteWord(obj._id)
+		vm.deleteWord = function(index) {
+			console.log('Trying to delete ' + vm.words[index].word);
+			wordData.deleteWord(vm.words[index]._id)
 				.then(function(result) {
-					var index = vm.wordLookUp[obj._id];
 					vm.words.splice(index, 1);
 				}, function(err) {
 					vm.alertMsg = 'Error deleting';

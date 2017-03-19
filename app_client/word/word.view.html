@@ -8,9 +8,9 @@
 	</div>
 	<br>
 	<div class="btn-group btn-group-justified">
-		<a class="btn btn-default" ng-click="vm.showPane('word')">Words</a>
-		<a class="btn btn-default" ng-click="vm.showPane('phrase')">Phrases</a>
-		<a class="btn btn-default" ng-click="vm.showPane('stat')">Statistics</a>
+		<a class="btn btn-default" ng-click="vm.showPane('word')"><b>Words</b></a>
+		<a class="btn btn-default" ng-click="vm.showPane('phrase')"><b>Phrases</b></a>
+		<a class="btn btn-default" ng-click="vm.showPane('stat')"><b>Statistics</b></a>
 	</div><br>
 
 	<div class="row">
@@ -32,8 +32,8 @@
 					<label>Date added</label>
 					<input type="date" ng-model="vm.new.date_added" class="form-control">
 				</div>
-				<button type="submit" class="btn btn-success" ng-click="vm.showAddForm = false; vm.alertMsg = false">Submit</button>
-				<a href="" class="btn btn-primary" ng-click="vm.showAddForm = false">Cancel</a>
+				<button type="submit" class="btn btn-success" ng-click="vm.showAddForm = false; vm.alertMsg = false">SUBMIT</button>
+				<a href="" class="btn btn-primary" ng-click="vm.showAddForm = false">CANCEL</a>
 			</form>
 		</div>
 	</div>
@@ -57,9 +57,9 @@
 					<label>Date added</label>
 					<input type="date" ng-model="vm.edit.date_added" class="form-control">
 				</div>
-				<button type="submit" class="btn btn-success" ng-click="vm.showEditForm = false; vm.alertMsg = false">Submit</button>
-				<a href="" class="btn btn-primary" ng-click="vm.showEditForm = false">Cancel</a>
-				<a href="" class="btn btn-danger" ng-click="vm.showEditForm = false; vm.alertMsg = false; vm.deleteWord(vm.edit)">Delete</a>
+				<button type="submit" class="btn btn-success" ng-click="vm.showEditForm = false; vm.alertMsg = false">SUBMIT</button>
+				<a href="" class="btn btn-primary" ng-click="vm.showEditForm = false">CANCEL</a>
+				<a href="" class="btn btn-danger" ng-click="vm.showEditForm = false; vm.alertMsg = false; vm.deleteWord(vm.edit)">DELETE</a>
 			</form>
 		</div>
 	</div>
@@ -77,14 +77,25 @@
 								<td><strong>Sound</strong></td>
 								<td><strong>Category</strong></td>
 								<td><strong>Date</strong></td>
+								<td><strong>Options</strong></td>
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="w in vm.words | orderBy : 'word' " ng-click="vm.showEditForm = true; vm.editForm(w)">
-								<td>{{ w.word }}</td>
-								<td>{{ w.sound }}</td>
-								<td>{{ w.category }}</td>
-								<td>{{ w.date_added | date }}</td>
+							<tr ng-repeat="w in vm.words | orderBy : 'word'">
+								<td ng-hide="edit">{{ w.word }}</td>
+								<td ng-hide="edit">{{ w.sound }}</td>
+								<td ng-hide="edit">{{ w.category }}</td>
+								<td ng-hide="edit">{{ w.date_added | date }}</td>
+
+								<td ng-show="edit"><input type="text" ng-model="w.word" class="form-control"></td>
+								<td ng-show="edit"><input type="text" ng-model="w.sound" class="form-control"></td>
+								<td ng-show="edit"><input type="text" ng-model="w.category" class="form-control"></td>
+								<td ng-show="edit"><input type="text" ng-model="w.date_added" class="form-control"></td>
+								<td>
+									<a href="" class="btn btn-primary btn-xs" ng-click="edit = true" ng-hide="edit"><i class="fa fa-pencil"></i></a>
+									<a href="" class="btn btn-success btn-xs" ng-click="loc = $index;vm.editWord(w, vm.words.indexOf(w)); edit = false" ng-show="edit"><i class="fa fa-check"></i></a>
+									<a href="" class="btn btn-danger btn-xs" ng-click="loc = $index;vm.deleteWord(vm.words.indexOf(w))"><i class="fa fa-trash"></i></a>
+								</td>
 							</tr>
 						</tbody>
 					</table>
