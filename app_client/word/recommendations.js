@@ -1,5 +1,5 @@
 (function() {
-	var recommendation = {
+	var guide = {
 		food: ['apple', 'banana', 'bread', 'butter', 'cake', 'candy', 'cereal', 'cheese', 'coffee', 'cookie', 'crackers', 'drink',
 					'egg', 'food', 'grapes', 'gum', 'hamburger', 'hotdog', 'icecream', 'juice', 'meat', 'milk', 'orange', 'pizza', 'pretzel',
 					'soda soup', 'spaghetti', 'tea', 'toast', 'water'],
@@ -14,7 +14,7 @@
 						'down', 'eat', 'feed', 'finish', 'fix', 'get', 'give', 'go', 'have', 'help', 'hit', 'hug', 'jump', 'kick', 'kiss',
 						'knock', 'look', 'love', 'lunch', 'take', 'nap', 'outside', 'pattycake', 'peekaboo', 'peepee', 'push', 'read', 'ride',
 						'run', 'see', 'show', 'sing', 'sit', 'sleep', 'stop', 'take', 'throw', 'tickle', 'walk', 'want'],
-		household: ['bathtub', 'bed', 'blanket', 'bottle', 'bowl', 'chair', 'clock', 'crib', 'cup', 'door', 'floor', 'fork', 'glass'
+		household: ['bathtub', 'bed', 'blanket', 'bottle', 'bowl', 'chair', 'clock', 'crib', 'cup', 'door', 'floor', 'fork', 'glass',
 						'knife', 'light', 'mirror', 'pillow', 'plate', 'potty', 'radio', 'room', 'sink', 'soap', 'sofa', 'spoon', 'stairs',
 						'table', 'telephone', 'towel', 'trash', 'tv', 'window'],
 		personal: ['brush', 'comb', 'glasses', 'key', 'money', 'paper', 'pen', 'pencil', 'penny', 'pocketbook', 'tissue', 'toothbrush',

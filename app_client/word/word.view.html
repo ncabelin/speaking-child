@@ -30,7 +30,7 @@
 				</div>
 				<div class="form-group">
 					<label>Date added</label>
-					<input type="date" ng-model="vm.new.date_added" class="form-control">
+					<input type="date" ng-model="vm.new.date_added" class="form-control" placeholder="YYYY/MM/DD">
 				</div>
 				<button type="submit" class="btn btn-success" ng-click="vm.showAddForm = false; vm.alertMsg = false">SUBMIT</button>
 				<a href="" class="btn btn-primary" ng-click="vm.showAddForm = false">CANCEL</a>
@@ -90,7 +90,9 @@
 								<td ng-show="edit"><input type="text" ng-model="w.word" class="form-control"></td>
 								<td ng-show="edit"><input type="text" ng-model="w.sound" class="form-control"></td>
 								<td ng-show="edit"><input type="text" ng-model="w.category" class="form-control"></td>
-								<td ng-show="edit"><input type="text" ng-model="w.date_added" class="form-control"></td>
+								<td ng-show="edit">
+									<input type="date" placeholder="Date" ng-model="w.date_added">
+								</td>
 								<td>
 									<a href="" class="btn btn-primary btn-xs" ng-click="edit = true" ng-hide="edit"><i class="fa fa-pencil"></i></a>
 									<a href="" class="btn btn-success btn-xs" ng-click="loc = $index;vm.editWord(w, vm.words.indexOf(w)); edit = false" ng-show="edit"><i class="fa fa-check"></i></a>

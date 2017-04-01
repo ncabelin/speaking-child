@@ -18,12 +18,14 @@
 
 		vm.onSubmit = function() {
 			console.log('Registration submitting');
+			console.log(vm.credentials);
 			if (vm.credentials.password !== vm.credentials.re_password) {
 				return vm.alertMsg = 'Password must match Re-enter password field';
 			}
 
 			if (vm.credentials.username && vm.credentials.email && vm.credentials.password) {
 				vm.alertMsg = false;
+				console.log(vm.credentials);
 				auth
 					.register(vm.credentials)
 					.then(function(result) {

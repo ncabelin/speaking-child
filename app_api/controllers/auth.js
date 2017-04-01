@@ -12,8 +12,9 @@ module.exports.register = function(req, res) {
 	}
 
 	var user = new User();
+	console.log(req.body.dob);
 	user.username = req.body.username;
-	user.dob = req.body.dob;
+	user.dob = new Date(req.body.dob);
 	user.child_name = req.body.child_name;
 	user.email = req.body.email;
 	user.setPassword(req.body.password);
