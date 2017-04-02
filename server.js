@@ -17,8 +17,8 @@ require('./app_api/config/passport');
 // take care of deprecated warning
 mongoose.Promise = global.Promise;
 
-// mongoose.connect(config().mongodb_uri);
-mongoose.connect('mongodb://localhost/speaking_child');
+mongoose.connect(config().mongodb_uri);
+// mongoose.connect('mongodb://localhost/speaking_child');
 
 function requireHTTPS(req, res, next) {
 	// forces https on web browsers where 
