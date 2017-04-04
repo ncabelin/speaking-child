@@ -19,7 +19,6 @@
 		vm.showAddForm = false;
 		vm.words = [];
 		vm.phrases = [];
-		vm.wordLookUp = {};
 		vm.showWord = true;
 		vm.showPane = function(pane) {
 			if (pane == 'word') {
@@ -85,6 +84,7 @@
 			});
 
 		vm.addWord = function(word) {
+			// check if blank input
 			if (!vm.new.word) {
 				return vm.alertMsg = 'Word field required';
 			}
@@ -152,42 +152,31 @@
 			}
 		}
 
-		vm.editForm = function(obj) {
-			vm.edit = {
-				_id: obj._id,
-				word: obj.word,
-				sound: obj.sound,
-				category: obj.category,
-				date_added: new Date(obj.date_added)
-			}
-		}
-
-		vm.editWord = function(obj, index) {
-			console.log(obj);
-			wordData.editWord(vm.words[index])
+		vm.editWord = function(obj) {
+			wordData.editWord(obj)
 				.then(function(result) {
-					vm.words[index] = obj;
+					console.log('Word edited successfully');
 				}, function(err) {
-					vm.alertMsg = 'Error editing';
+					vm.alertMsg = 'Error editing word';
 				});
 		};
 
 		vm.editPhrase = function(obj) {
 			wordData.editPhrase(obj)
 				.then(function(result) {
-					console.log('Edit successful');
+					console.log('Phrase edited successfully');
 				}, function(err) {
-					vm.alertMsg = 'Error editing';
+					vm.alertMsg = 'Error editing phrase';
 				});
 		};
 
-		vm.deleteWord = function(index) {
-			console.log('Trying to delete ' + vm.words[index].word);
-			wordData.deleteWord(vm.words[index]._id)
+		vm.deleteWord = function(obj) {
+			wordData.deleteWord(obj._id)
 				.then(function(result) {
+					var index = vm.words.indexOf(obj);
 					vm.words.splice(index, 1);
 				}, function(err) {
-					vm.alertMsg = 'Error deleting';
+					vm.alertMsg = 'Error deleting word';
 				});
 		}
 
@@ -197,7 +186,7 @@
 					var index = vm.phrases.indexOf(obj);
 					vm.phrases.splice(index, 1);
 				}, function(err) {
-					vm.alertMsg = 'Error deleting';
+					vm.alertMsg = 'Error deleting phrase';
 				});
 		}
 	}

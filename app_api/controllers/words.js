@@ -56,7 +56,7 @@ module.exports.addWord = function(req, res) {
 		date_added: new Date
 	}, function(err, word) {
 		User.findOne({ _id: req.payload._id }, function(err, foundUser) {
-			if (err) { 
+			if (err) {
 				return res.status(400).json({'message': 'User not found'}); 
 			} else {
 				foundUser.words.push(word);
@@ -115,7 +115,6 @@ module.exports.editWord = function(req, res) {
 				.json({'message': 'Word not found'});
 		}
 
-		console.log(word);
 		if (word.user.id.equals(req.payload._id)) {
 			word.word = req.body.word;
 			word.sound = req.body.sound;
@@ -149,7 +148,6 @@ module.exports.editPhrase = function(req, res) {
 				.json({'message': 'Word not found'});
 		}
 
-		console.log(phrase);
 		if (phrase.user.id.equals(req.payload._id)) {
 			phrase.phrase = req.body.phrase;
 			phrase.sound = req.body.sound;
