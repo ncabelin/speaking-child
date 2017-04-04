@@ -37,110 +37,81 @@
 			</form>
 		</div>
 	</div>
-
-	<div class="row">
-		<div class="col-md-6 col-md-offset-3">
-			<form ng-submit="vm.editWord(vm.edit)" ng-show="vm.showEditForm" class="well form">
-				<div class="form-group">
-					<label>Word</label>
-					<input type="text" ng-model="vm.edit.word" class="form-control" placeholder="Enter 2 or more words to save as phrase">
-				</div>
-				<div class="form-group">
-					<label>Sound</label>
-					<input type="text" ng-model="vm.edit.sound" class="form-control" placeholder="(Leave blank to copy word)">
-				</div>
-				<div class="form-group">
-					<label>Category</label>
-					<input type="text" ng-model="vm.edit.category" class="form-control">
-				</div>
-				<div class="form-group">
-					<label>Date added</label>
-					<input type="date" ng-model="vm.edit.date_added" class="form-control">
-				</div>
-				<button type="submit" class="btn btn-success" ng-click="vm.showEditForm = false; vm.alertMsg = false">SUBMIT</button>
-				<a href="" class="btn btn-primary" ng-click="vm.showEditForm = false">CANCEL</a>
-				<a href="" class="btn btn-danger" ng-click="vm.showEditForm = false; vm.alertMsg = false; vm.deleteWord(vm.edit)">DELETE</a>
-			</form>
+	<div class="row" ng-show="vm.showWord">
+		<br>
+		<div class="col-md-12">
+			<h3>{{ vm.words.length }} WORDS</h3>
+			<input type="text" ng-model="vm.wordFilter" placeholder="Search..."><br><br>
+		</div>
+		<div class="col-md-3" ng-repeat="w in vm.words | orderBy : 'word' | filter : vm.wordFilter ">
+			<div class="well phrases" ng-click="editWord = true" ng-hide="editWord" ng-init="editWord = false">
+				<h3>{{ w.word }}</h3><br>
+				{{ w.sound }}
+			</div>
+			<div class="well" ng-show="editWord">
+				<form class="form" ng-submit="vm.editWord(w)">
+					<div class="form-group">
+						<label>Word</label>
+						<input class="form-control" ng-model="w.word" type="text">
+					</div>
+					<div class="form-group">
+						<label>Sound</label>
+						<input class="form-control" ng-model="w.sound" type="text">
+					</div>
+					<div class="form-group">
+						<label>Category</label>
+						<input class="form-control" ng-model="w.category" type="text">
+					</div>
+					<div class="form-group">
+						<label>Date</label>
+						<input type="date" class="form-control" ng-model="w.date_added">
+					</div>
+					<button class="btn btn-success" ng-click="editWord = false">OK</button>
+					<a href="" class="btn btn-primary" ng-click="editWord = false">CANCEL</a>
+					<a href="" class="btn btn-danger" ng-click="vm.deleteWord(w)">DELETE</a>
+				</form>
+			</div>
 		</div>
 	</div>
 
-	<div>
-
-			<div class="row" ng-show="vm.showWord">
-				<br>
-				<div class="col-md-12">
-					<h3>{{ vm.words.length }} WORDS</h3>
-				</div>
-				<div class="col-md-3" ng-repeat="w in vm.words | orderBy : 'word' ">
-					<div class="well phrases" ng-click="editWord = true" ng-hide="editWord" ng-init="editWord = false">
-						<h3>{{ w.word }}</h3><br>
-						{{ w.sound }}
-					</div>
-					<div class="well" ng-show="editWord">
-						<form class="form" ng-submit="vm.editWord(w)">
-							<div class="form-group">
-								<label>Word</label>
-								<input class="form-control" ng-model="w.word" type="text">
-							</div>
-							<div class="form-group">
-								<label>Sound</label>
-								<input class="form-control" ng-model="w.sound" type="text">
-							</div>
-							<div class="form-group">
-								<label>Category</label>
-								<input class="form-control" ng-model="w.category" type="text">
-							</div>
-							<div class="form-group">
-								<label>Date</label>
-								<input type="date" class="form-control" ng-model="w.date_added">
-							</div>
-							<button class="btn btn-success" ng-click="editWord = false">OK</button>
-							<a href="" class="btn btn-primary" ng-click="editWord = false">CANCEL</a>
-							<a href="" class="btn btn-danger" ng-click="vm.deleteWord(w)">DELETE</a>
-						</form>
-					</div>
-				</div>
+	<div class="row" ng-show="vm.showPhrase">
+		<br>
+		<div class="col-md-12">
+			<h3>{{ vm.phrases.length }} PHRASES</h3>
+			<input type="text" ng-model="vm.phraseFilter" placeholder="Search..."><br><br>
+		</div>
+		<div class="col-md-3" ng-repeat="p in vm.phrases | orderBy : 'phrase' | filter : vm.phraseFilter">
+			<div class="well phrases" ng-click="editPhrase = true" ng-hide="editPhrase" ng-init="editPhrase = false">
+				<h3>{{ p.phrase }}</h3><br>
+				{{ p.sound }}
 			</div>
-
-    	<div class="row" ng-show="vm.showPhrase">
-				<br>
-				<div class="col-md-12">
-					<h3>{{ vm.phrases.length }} PHRASES</h3>
-				</div>
-				<div class="col-md-3" ng-repeat="p in vm.phrases | orderBy : 'phrase' ">
-					<div class="well phrases" ng-click="editPhrase = true" ng-hide="editPhrase" ng-init="editPhrase = false">
-						<h3>{{ p.phrase }}</h3><br>
-						{{ p.sound }}
+			<div class="well" ng-show="editPhrase">
+				<form class="form" ng-submit="vm.editPhrase(p)">
+					<div class="form-group">
+						<label>Phrase</label>
+						<input class="form-control" ng-model="p.phrase" type="text">
 					</div>
-					<div class="well" ng-show="editPhrase">
-						<form class="form" ng-submit="vm.editPhrase(p)">
-							<div class="form-group">
-								<label>Phrase</label>
-								<input class="form-control" ng-model="p.phrase" type="text">
-							</div>
-							<div class="form-group">
-								<label>Sound</label>
-								<input class="form-control" ng-model="p.sound" type="text">
-							</div>
-							<div class="form-group">
-								<label>Category</label>
-								<input class="form-control" ng-model="p.category" type="text">
-							</div>
-							<div class="form-group">
-								<label>Date</label>
-								<input type="date" class="form-control" ng-model="p.date_added">
-							</div>
-							<button class="btn btn-success" ng-click="editPhrase = false">OK</button>
-							<a href="" class="btn btn-primary" ng-click="editPhrase = false">CANCEL</a>
-							<a href="" class="btn btn-danger" ng-click="vm.deletePhrase(p)">DELETE</a>
-						</form>
+					<div class="form-group">
+						<label>Sound</label>
+						<input class="form-control" ng-model="p.sound" type="text">
 					</div>
-				</div>
+					<div class="form-group">
+						<label>Category</label>
+						<input class="form-control" ng-model="p.category" type="text">
+					</div>
+					<div class="form-group">
+						<label>Date</label>
+						<input type="date" class="form-control" ng-model="p.date_added">
+					</div>
+					<button class="btn btn-success" ng-click="editPhrase = false">OK</button>
+					<a href="" class="btn btn-primary" ng-click="editPhrase = false">CANCEL</a>
+					<a href="" class="btn btn-danger" ng-click="vm.deletePhrase(p)">DELETE</a>
+				</form>
 			</div>
+		</div>
+	</div>
 
-			<div class="row" ng-show="vm.showStat">
-				<h3>Statistics</h3>
-			</div>
-
+	<div class="row" ng-show="vm.showStat">
+		<h3>Statistics</h3>
 	</div>
 </div>
