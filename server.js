@@ -48,8 +48,8 @@ app.use(function(err, req, res, next) {
 	}
 });
 
-app.get('*', function(req, res) {
-	res.sendFile(__dirname + '/app_client/index.html');
+app.use(function(req, res) {
+	res.sendFile('index.html', {root: __dirname + '/app_client/'});
 });
 
 app.listen(port, ip, function() {
