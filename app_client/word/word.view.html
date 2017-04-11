@@ -10,7 +10,7 @@
 	<div class="btn-group btn-group-justified">
 		<a class="btn btn-default" ng-click="vm.showPane('word')"><b>Words</b></a>
 		<a class="btn btn-default" ng-click="vm.showPane('phrase')"><b>Phrases</b></a>
-		<a class="btn btn-default" ng-click="vm.showPane('stat')"><b>Statistics</b></a>
+		<a class="btn btn-default" ng-click="vm.showPane('stat')"><b>Guide</b></a>
 	</div><br>
 
 	<div class="row">
@@ -112,6 +112,16 @@
 	</div>
 
 	<div class="row" ng-show="vm.showStat">
-		<h3>Statistics</h3>
+		<div class="col-md-6 col-md-offset-3">
+			<h2>GUIDE</h2>
+			<ul class="list-group">
+				<li ng-repeat="(k,g) in vm.guide" class="list-group-item">
+					<h3>{{ k }}</h3>
+					<ul class="list-group">
+						<li class="list-group-item" ng-repeat="i in g">{{ i }}</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
 	</div>
 </div>

@@ -36,6 +36,8 @@
 			}
 		}
 
+		vm.guide = wordData.guide;
+
 		var countWords = function(word) {
 			var word_arr = word.split(' '),
 					length = word_arr.length;
