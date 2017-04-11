@@ -24,7 +24,7 @@ function requireHTTPS(req, res, next) {
 	// forces https on web browsers where 
 	// it is not automatic (e.g. chrome)
 	if (!req.secure && req.get('x-forwarded-proto') !== 'https' 
-		&& process.env.NODE_ENV !== 'development') {
+		&& process.env.NODE_ENV !== 'development' && req.get('host') !== 'localhost:8080') {
 		return res.redirect('https://' + req.get('host') + req.url);
 	}
 
