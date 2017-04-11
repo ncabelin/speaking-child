@@ -23,14 +23,12 @@ mongoose.connect(config().mongodb_uri);
 function requireHTTPS(req, res, next) {
 	// forces https on web browsers where 
 	// it is not automatic (e.g. chrome)
-	if (req.get('host') == 'localhost:8080') {
-		return next();
-	}
-
 	if (!req.secure && req.get('x-forwarded-proto') !== 'https' 
 		&& process.env.NODE_ENV !== 'development') {
 		return res.redirect('https://' + req.get('host') + req.url);
 	}
+
+	return next();
 }
 
 app.use(requireHTTPS);
