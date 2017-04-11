@@ -44,9 +44,15 @@
 			}
 		};
 
-		var convertDate = function(arr) {
+		var convertDate = function(arr, status) {
 			for (var i = 0, x = arr.length; i < x; i++) {
 				arr[i].date_added = new Date(arr[i].date_added);
+				// check if the sound is alike
+				if (arr[i][status] !== arr[i].sound) {
+					arr[i].status = true;
+				} else {
+					arr[i].status = false;
+				}
 			}
 			return arr;
 		}
@@ -62,9 +68,7 @@
 		wordData.readWords()
 			.then(function(result) {
 				vm.words = result.data.words;
-				vm.words = convertDate(vm.words);
-				// create easy lookup of array index based on _id
-				vm.wordLookUp = createLookUp(vm.words);
+				vm.words = convertDate(vm.words, 'word');
 			}, function(err) {
 				vm.alertMsg += 'Error :' + err;
 				console.log(err);
@@ -74,7 +78,7 @@
 			.then(function(result) {
 				vm.phrases = result.data.phrases;
 				if (vm.phrases[0] !== null) {
-					vm.phrases = convertDate(vm.phrases);
+					vm.phrases = convertDate(vm.phrases, 'phrase');
 				} else {
 					vm.phrases = [];
 				}
