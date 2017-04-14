@@ -3,7 +3,11 @@
 	<div class="row">
 		<div class="col-md-12 text-center">
 			<div class="alert alert-danger" ng-show="vm.alertMsg">{{ vm.alertMsg }}</div>
-			<button class="btn btn-primary btn-lg" ng-click="vm.showAddForm = true" ng-hide="vm.showAddForm">ADD</button>
+			<!-- <button class="btn btn-primary btn-lg" ng-click="vm.resetForm();vm.showAddForm = true" ng-hide="vm.showAddForm">ADD</button> -->
+			<!-- Button trigger modal -->
+			<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+			  ADD
+			</button>
 		</div>
 	</div>
 	<br>
@@ -13,9 +17,47 @@
 		<a class="btn btn-default" ng-click="vm.showPane('stat');vm.checkMatch()"><b>Guide</b></a>
 	</div><br>
 
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">ADD WORD / PHRASE</h4>
+	      </div>
+	      <div class="modal-body">
+	      <form class="well form">
+					<div class="form-group">
+						<label>Word</label>
+						<input type="text" ng-model="vm.new.word" class="form-control" placeholder="Enter 2 or more words to save as phrase" id="newWord">
+					</div>
+					<div class="form-group">
+						<label>Sound</label>
+						<input type="text" ng-model="vm.new.sound" class="form-control" placeholder="Optional: Leave blank to be the same as word">
+					</div>
+					<div class="form-group">
+						<label>Category</label>
+						<input type="text" ng-model="vm.new.category" class="form-control">
+					</div>
+					<div class="form-group">
+						<label>Date added</label>
+						<input type="date" ng-model="vm.new.date_added" class="form-control" placeholder="YYYY/MM/DD">
+					</div>
+					<button type="submit" class="btn btn-success" ng-click="vm.showAddForm = false; vm.alertMsg = false;vm.addWord(vm.new.word)" data-dismiss="modal">SUBMIT</button>
+					<a class="btn btn-default" data-dismiss="modal">CANCEL</a>
+				</form>
+	      </div>
+	      <!-- <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
+	        <button type="button" class="btn btn-primary">Save changes</button>
+	      </div> -->
+	    </div>
+	  </div>
+	</div>
+
 	<div class="row">
 		<div class="col-md-6 col-md-offset-3">
-			<form ng-submit="vm.addWord(vm.new.word)" ng-show="vm.showAddForm" class="well form">
+			<!-- <form ng-submit="vm.addWord(vm.new.word)" ng-show="vm.showAddForm" class="well form">
 				<div class="form-group">
 					<label>Word</label>
 					<input type="text" ng-model="vm.new.word" class="form-control" placeholder="Enter 2 or more words to save as phrase" id="newWord">
@@ -34,7 +76,7 @@
 				</div>
 				<button type="submit" class="btn btn-success" ng-click="vm.showAddForm = false; vm.alertMsg = false">SUBMIT</button>
 				<a href="" class="btn btn-primary" ng-click="vm.showAddForm = false">CANCEL</a>
-			</form>
+			</form> -->
 		</div>
 	</div>
 	<div class="row" ng-show="vm.showWord">
@@ -119,7 +161,7 @@
 						<i class="fa fa-plus-circle" aria-hidden="true" ng-hide="showGroup"></i>
 						<i class="fa fa-minus-circle" aria-hidden="true" ng-show="showGroup"></i></span></h2>
 					<div class="well" ng-show="showGroup">
-						<span ng-class="{ 'match': h.status }" ng-repeat="h in g" class="guideWord" ng-click="vm.guideAddWord(h.word);vm.showAddForm = true">{{ h.word }} - </span>
+						<span ng-class="{ 'match': h.status }" ng-repeat="h in g" class="guideWord" ng-click="vm.guideAddWord(h.word);vm.showAddForm = true" data-toggle="modal" data-target="#myModal">{{ h.word }} - </span>
 					</div>
 				</li>
 			</ul>

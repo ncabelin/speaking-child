@@ -16,6 +16,9 @@
 			};
 		};
 		vm.new = resetAddForm();
+		vm.resetForm = function() {
+			vm.new = resetAddForm();
+		};
 		vm.showAddForm = false;
 		vm.words = [];
 		vm.wordLook = [];
