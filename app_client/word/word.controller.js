@@ -220,6 +220,11 @@
 				});
 		};
 
+		vm.guideAddWord = function(word) {
+			vm.new.word = word;
+			vm.new.sound = word;
+		};
+
 		vm.editPhrase = function(obj) {
 			wordData.editPhrase(obj)
 				.then(function(result) {
