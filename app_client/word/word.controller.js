@@ -18,6 +18,7 @@
 		vm.new = resetAddForm();
 		vm.showAddForm = false;
 		vm.words = [];
+		vm.wordLook = [];
 		vm.phrases = [];
 		vm.showWord = true;
 		vm.showPane = function(pane) {
@@ -37,6 +38,26 @@
 		}
 
 		vm.guide = wordData.guide;
+		vm.guideMatches = [];
+
+		// var checkMatches = function(word) {
+		// 	for (var key in wordData.guide) {
+		// 	  if (wordData.guide.hasOwnProperty(key)) {
+		// 	    for (var i = 0, j = wordData.guide[key].length; i < j; i++) {
+		// 	    	console.log(word, wordData.guide[key][i]);
+		// 	    	if (wordData.guide[key][i].toLowerCase() === word.toLowerCase()) {
+		// 	    		return true;
+		// 	    		vm.guideMatches.push(word);
+		// 	    	}
+		// 	    }
+		// 	  }
+		// 	}
+		// 	return false;
+		// }
+
+		vm.checkMatch = function() {
+			console.log('checking matches');
+		};
 
 		var countWords = function(word) {
 			var word_arr = word.split(' '),
@@ -45,6 +66,7 @@
 				return length;
 			}
 		};
+
 
 		var convertDate = function(arr, status) {
 			for (var i = 0, x = arr.length; i < x; i++) {
@@ -55,6 +77,13 @@
 				} else {
 					arr[i].status = false;
 				}
+				// // check if word exists in guide
+				// if (checkMatches(arr[i].word) === true) {
+				// 	arr[i].match = true;
+				// 	// vm.guideMatches.push(arr[i].word);
+				// } else {
+				// 	arr[i].match = false;
+				// }
 			}
 			return arr;
 		}
@@ -71,6 +100,10 @@
 			.then(function(result) {
 				vm.words = result.data.words;
 				vm.words = convertDate(vm.words, 'word');
+				// save word look up in an array
+				vm.words.forEach(function(data) {
+					vm.wordLook.push(data.word);
+				});
 			}, function(err) {
 				vm.alertMsg += 'Error :' + err;
 				console.log(err);
@@ -146,9 +179,9 @@
 				.then(function(result) {
 					// reformat date for ng-model rendering
 					result.data.date_added = new Date(result.data.date_added);
+					result.data.status = (result.data.word !== result.data.sound) ? true : false;
 					vm.words.push(result.data);
-					vm.wordLookUp[result.data._id] = vm.words.length;
-					console.log(vm.wordLookUp);
+					vm.wordLook.push(result.data.word);
 					// reset add word form
 					vm.new = resetAddForm();
 				}, function(err) {
@@ -195,5 +228,18 @@
 					vm.alertMsg = 'Error deleting phrase';
 				});
 		}
+
+		// vm.checkMatches = function(word) {
+		// 	console.log(vm.wordLook);
+		// 	for (key in wordData.guide) {
+		// 		if (wordData.guide.hasOwnProperty(key)) {
+		// 			var index = vm.wordLook.indexOf(word.toLowerCase());
+		// 			if (index !== -1) {
+		// 				console.log('matches', index);
+		// 				return true
+		// 			}
+		// 		}
+		// 	}
+		// }
 	}
 })();

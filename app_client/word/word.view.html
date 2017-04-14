@@ -10,7 +10,7 @@
 	<div class="btn-group btn-group-justified">
 		<a class="btn btn-default" ng-click="vm.showPane('word')"><b>Words</b></a>
 		<a class="btn btn-default" ng-click="vm.showPane('phrase')"><b>Phrases</b></a>
-		<a class="btn btn-default" ng-click="vm.showPane('stat')"><b>Guide</b></a>
+		<a class="btn btn-default" ng-click="vm.showPane('stat');vm.checkMatch()"><b>Guide</b></a>
 	</div><br>
 
 	<div class="row">
@@ -118,7 +118,9 @@
 				<li ng-repeat="(k,g) in vm.guide" class="list-group-item">
 					<h3>{{ k }}</h3>
 					<ul class="list-group">
-						<li class="list-group-item" ng-repeat="i in g">{{ i }}</li>
+						<li class="list-group-item" ng-repeat="i in g">
+							<div ng-class="{ 'match': vm.checkMatches(i) }">{{ i }}</div>
+						</li>
 					</ul>
 				</li>
 			</ul>
