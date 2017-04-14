@@ -111,18 +111,16 @@
 		</div>
 	</div>
 
-	<div class="row" ng-show="vm.showStat">
+	<div class="row" ng-show="vm.showStat" ng-init="vm.order = 'category'">
 		<div class="col-md-6 col-md-offset-3">
 			<h2>GUIDE</h2>
+			Order by : <a ng-click="vm.order = 'category'"><u>category</u></a>, <a ng-click="vm.order = 'word'"><u>word</u></a>
 			<ul class="list-group">
-				<li ng-repeat="(k,g) in vm.guide" class="list-group-item">
-					<h3>{{ k }}</h3>
-					<ul class="list-group">
-						<li class="list-group-item" ng-repeat="i in g">
-							<div ng-class="{ 'match': vm.checkMatches(i) }">{{ i }}</div>
-						</li>
-					</ul>
+				<span ng-repeat="g in vm.guide | orderBy : vm.order">
+				<li class="list-group-item">
+					<span ng-class="{ 'match': g.status }">{{ g.word }}</span> - <span>{{ g.category }}</span>
 				</li>
+				</span>
 			</ul>
 		</div>
 	</div>

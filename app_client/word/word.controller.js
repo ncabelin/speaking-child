@@ -37,26 +37,54 @@
 			}
 		}
 
-		vm.guide = wordData.guide;
+		vm.guide = [];
 		vm.guideMatches = [];
 
-		// var checkMatches = function(word) {
-		// 	for (var key in wordData.guide) {
-		// 	  if (wordData.guide.hasOwnProperty(key)) {
-		// 	    for (var i = 0, j = wordData.guide[key].length; i < j; i++) {
-		// 	    	console.log(word, wordData.guide[key][i]);
-		// 	    	if (wordData.guide[key][i].toLowerCase() === word.toLowerCase()) {
-		// 	    		return true;
-		// 	    		vm.guideMatches.push(word);
-		// 	    	}
-		// 	    }
-		// 	  }
-		// 	}
-		// 	return false;
-		// }
-
 		vm.checkMatch = function() {
+			// check for match in guide
 			console.log('checking matches');
+			vm.guide = [];
+			vm.guideMatches = [];
+			vm.guideObj = {};
+
+			// create initial data structure from wordData guide
+			for (var key in wordData.guide) {
+				if (wordData.guide.hasOwnProperty(key)) {
+					for (var i = 0, j = wordData.guide[key].length; i < j; i++) {
+						// iterate through every word
+						vm.guide.push({ word: wordData.guide[key][i], category: key, status: false});
+						if (vm.guideObj[key]) {
+							vm.guideObj[key].push({ word: wordData.guide[key][i], status: false });
+						} else {
+							vm.guideObj[key] = [];
+						}
+					}
+				}
+			}
+
+			// check for matches on all recorded words
+			vm.words.forEach(function(data) {
+				vm.guide.forEach(function(x) {
+					if (x.word.toLowerCase() === data.word.toLowerCase()) {
+						x.status = true;
+						vm.guideMatches.push(data.word.toLowerCase());
+					}
+				});
+			});
+
+			// alter initial data structure's status
+			for (var key in vm.guideObj) {
+				if (vm.guideObj.hasOwnProperty(key)) {
+					for (var i = 0, j = vm.guideObj[key].length; i < j; i++) {
+						if (vm.guideMatches.indexOf(vm.guideObj[key][i].word) !== -1) {
+							vm.guideObj[key][i].status = true;
+						}
+					}
+				}
+			}
+
+			console.log(vm.guideMatches);
+			console.log(vm.guideObj);
 		};
 
 		var countWords = function(word) {
@@ -77,13 +105,6 @@
 				} else {
 					arr[i].status = false;
 				}
-				// // check if word exists in guide
-				// if (checkMatches(arr[i].word) === true) {
-				// 	arr[i].match = true;
-				// 	// vm.guideMatches.push(arr[i].word);
-				// } else {
-				// 	arr[i].match = false;
-				// }
 			}
 			return arr;
 		}
@@ -101,9 +122,6 @@
 				vm.words = result.data.words;
 				vm.words = convertDate(vm.words, 'word');
 				// save word look up in an array
-				vm.words.forEach(function(data) {
-					vm.wordLook.push(data.word);
-				});
 			}, function(err) {
 				vm.alertMsg += 'Error :' + err;
 				console.log(err);
@@ -230,18 +248,5 @@
 					vm.alertMsg = 'Error deleting phrase';
 				});
 		}
-
-		// vm.checkMatches = function(word) {
-		// 	console.log(vm.wordLook);
-		// 	for (key in wordData.guide) {
-		// 		if (wordData.guide.hasOwnProperty(key)) {
-		// 			var index = vm.wordLook.indexOf(word.toLowerCase());
-		// 			if (index !== -1) {
-		// 				console.log('matches', index);
-		// 				return true
-		// 			}
-		// 		}
-		// 	}
-		// }
 	}
 })();
