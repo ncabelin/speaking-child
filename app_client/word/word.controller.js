@@ -194,6 +194,8 @@
 		vm.editWord = function(obj) {
 			wordData.editWord(obj)
 				.then(function(result) {
+					var index = vm.words.indexOf(obj);
+					vm.words[index].status = (vm.words[index].word !== vm.words[index].sound) ? true : false;
 					console.log('Word edited successfully');
 				}, function(err) {
 					vm.alertMsg = 'Error editing word';
