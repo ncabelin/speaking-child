@@ -21,7 +21,6 @@
 		};
 		vm.showAddForm = false;
 		vm.words = [];
-		vm.wordLook = [];
 		vm.phrases = [];
 		vm.showWord = true;
 		vm.showPane = function(pane) {
@@ -45,7 +44,6 @@
 
 		vm.checkMatch = function() {
 			// check for match in guide
-			console.log('checking matches');
 			vm.guide = [];
 			vm.guideMatches = [];
 			vm.guideObj = {};
@@ -85,22 +83,12 @@
 					}
 				}
 			}
-
-			console.log(vm.guideMatches);
-			console.log(vm.guideObj);
 		};
 
-		var countWords = function(word) {
-			var word_arr = word.split(' '),
-					length = word_arr.length;
-			if (length > 1) {
-				return length;
-			}
-		};
-
-
-		var convertDate = function(arr, status) {
+		var alter = function(arr, status) {
+			// alter array
 			for (var i = 0, x = arr.length; i < x; i++) {
+				// convert date
 				arr[i].date_added = new Date(arr[i].date_added);
 				// check if the sound is alike
 				if (arr[i][status] !== arr[i].sound) {
@@ -112,18 +100,10 @@
 			return arr;
 		}
 
-		var createLookUp = function(arr) {
-			var lookup = {};
-			for (var i = 0, len = arr.length; i < len; i++) {
-				lookup[arr[i]._id] = i;
-			}
-			return lookup;
-		}
-
 		wordData.readWords()
 			.then(function(result) {
 				vm.words = result.data.words;
-				vm.words = convertDate(vm.words, 'word');
+				vm.words = alter(vm.words, 'word');
 				// save word look up in an array
 			}, function(err) {
 				vm.alertMsg += 'Error :' + err;
@@ -134,7 +114,8 @@
 			.then(function(result) {
 				vm.phrases = result.data.phrases;
 				if (vm.phrases[0] !== null) {
-					vm.phrases = convertDate(vm.phrases, 'phrase');
+					vm.phrases = alter(vm.phrases, 'phrase');
+					console.log(vm.phrases);
 				} else {
 					vm.phrases = [];
 				}
@@ -202,7 +183,6 @@
 					result.data.date_added = new Date(result.data.date_added);
 					result.data.status = (result.data.word !== result.data.sound) ? true : false;
 					vm.words.push(result.data);
-					vm.wordLook.push(result.data.word);
 					// reset add word form
 					vm.new = resetAddForm();
 				}, function(err) {
