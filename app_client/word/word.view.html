@@ -79,18 +79,18 @@
 			</form> -->
 		</div>
 	</div>
-	<div class="row" ng-show="vm.showWord">
+	<div class="row" ng-show="vm.showWord" ng-init="vm.wordSort = 'word'">
 		<br>
 		<div class="col-md-12">
 			<h3>{{ vm.words.length }} WORDS</h3>
-			<input type="text" ng-model="vm.wordFilter" placeholder="Search..."><br><br>
+			<input type="text" ng-model="vm.wordFilter" placeholder="Search..."> Sort by : <a href="" ng-click="vm.wordSort = '-date_added'">date added</a>, <a href="" ng-click="vm.wordSort = 'word'">alphabetical</a><br><br>
 		</div>
-		<div class="col-md-3" ng-repeat="w in vm.words | orderBy : 'word' | filter : vm.wordFilter ">
-			<div class="well phrases" ng-click="editWord = true" ng-hide="editWord" ng-init="editWord = false" ng-class="{ 'unresolved': w.status }">
+		<div class="col-md-3" ng-repeat="w in vm.words | orderBy : vm.wordSort | filter : vm.wordFilter ">
+			<div class="well phrases" ng-click="editWord = true" ng-hide="editWord" ng-init="editWord = false" ng-class="{ 'resolved': !w.status, 'unresolved': w.status }">
 				<h3>{{ w.word }}</h3><br>
 				{{ w.sound }}
 			</div>
-			<div class="well" ng-show="editWord" ng-class="{ 'unresolved': w.status }">
+			<div class="well" ng-show="editWord" ng-class="{ 'resolved': !w.status, 'unresolved': w.status }">
 				<form class="form" ng-submit="vm.editWord(w)">
 					<div class="form-group">
 						<label>Word</label>
@@ -161,7 +161,7 @@
 						<i class="fa fa-plus-circle" aria-hidden="true" ng-hide="showGroup"></i>
 						<i class="fa fa-minus-circle" aria-hidden="true" ng-show="showGroup"></i></span></h2>
 					<div class="well" ng-show="showGroup">
-						<span ng-class="{ 'match': h.status }" ng-repeat="h in g" class="guideWord" ng-click="vm.guideAddWord(h.word);vm.showAddForm = true" data-toggle="modal" data-target="#myModal">{{ h.word }} - </span>
+						<span ng-class="{ 'btn-success': h.status }" ng-repeat="h in g" class="guideWord btn btn-default" ng-click="vm.guideAddWord(h.word);vm.showAddForm = true" data-toggle="modal" data-target="#myModal">{{ h.word }}</span> 
 					</div>
 				</li>
 			</ul>
