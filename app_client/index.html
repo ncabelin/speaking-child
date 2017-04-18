@@ -40,10 +40,41 @@
   <link href="https://fonts.googleapis.com/css?family=Lato:300,700" rel="stylesheet">
   <!-- <link href="/css/style.css" rel="stylesheet"> -->
   <style>
-  	body {
+  	body, html {
   		font-family: 'Lato', sans-serif;
       font-size: 18px;
+      height: 100%;
   	}
+
+    .main {
+      background: url('https://cloud.githubusercontent.com/assets/15892944/25108518/2365e612-238b-11e7-9d9c-00e6ee76f481.jpg') fixed center center no-repeat;
+      background-size: cover;
+      height: 100%;
+    }
+
+    .navbar-nav>li>a {
+      text-align: center;
+    }
+
+    .navbar-default {
+      border: 0;
+      background-color: #fddfa9;
+    }
+
+    .navbar-default .navbar-toggle, .navbar-default:hover {
+      border-color: rgba(221, 221, 221, 0);
+    }
+
+    .navbar-toggle .icon-bar {
+      display: block;
+      width: 28px;
+      height: 3px;
+      border-radius: 1px;
+    }
+
+    .navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+      background-color: rgba(0,0,0,0);
+    }
 
   	h1,h2,h3,h4,.navbar-brand .title {
   		font-family: 'Chewy', cursive;
@@ -86,6 +117,7 @@
 
     .btn-menu {
       background-color: #f8f8f8;
+      font-size: 25px;
     }
 
     #sub-menu {
