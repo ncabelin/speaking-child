@@ -1,0 +1,104 @@
+
+  	body, html {
+  		font-family: 'Lato', sans-serif;
+      font-size: 18px;
+      height: 100%;
+  	}
+
+    .main {
+      background: url('https://cloud.githubusercontent.com/assets/15892944/25108518/2365e612-238b-11e7-9d9c-00e6ee76f481.jpg') fixed center center no-repeat;
+      background-size: cover;
+      height: 100%;
+    }
+
+    .navbar-nav>li>a {
+      text-align: center;
+    }
+
+    .navbar-default {
+      border: 0;
+      background-color: #fddfa9;
+    }
+
+    .navbar-default .navbar-toggle, .navbar-default:hover {
+      border-color: rgba(221, 221, 221, 0);
+    }
+
+    .navbar-toggle .icon-bar {
+      display: block;
+      width: 28px;
+      height: 3px;
+      border-radius: 1px;
+    }
+
+    .navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+      background-color: rgba(0,0,0,0);
+    }
+
+  	h1,h2,h3,h4,.navbar-brand .title {
+  		font-family: 'Chewy', cursive;
+      letter-spacing: 2px;
+  	}
+
+  	tbody tr, .well.phrases:hover {
+  		cursor: pointer;
+  		border: 1px solid #b2b1b1;
+  	}
+
+    .list-group:hover {
+      cursor: pointer;
+    }
+
+    .list-group-item {
+      border: 1px solid #898888;
+    }
+
+    .form-control {
+      font-size: 18px;
+    }
+
+    .resolved {
+      background-color: #7dd18f;
+    }
+
+    .unresolved {
+      background-color: #d77b7b;
+    }
+
+    .match {
+      color: #44b649;
+      font-weight: bold;
+    }
+
+    .navbar {
+      margin-bottom: 0;
+    }
+
+    .btn-menu {
+      background-color: #f8f8f8;
+      font-size: 25px;
+    }
+
+    #sub-menu {
+      z-index: 4;
+    }
+
+    .affix {
+      top: 0;
+    }
+
+    #add-btn {
+      margin-left: 47.5%;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    h3 {
+      margin-top: 10px;
+    }
+
+    @media (max-width: 500px) {
+      .btn-menu {
+        font-size: 20px;
+      }
+    }
