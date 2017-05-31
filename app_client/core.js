@@ -22,6 +22,10 @@
 					templateUrl: 'goal/goal.view.html'
 				})
 
+				.when('/help', {
+					templateUrl: 'help/help.view.html'
+				})
+
 				.otherwise({ redirectTo: '/'});
 
 			$locationProvider.html5Mode(true);
