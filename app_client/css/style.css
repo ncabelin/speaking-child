@@ -5,10 +5,22 @@
       height: 100%;
   	}
 
-    .main {
-      background: url('https://cloud.githubusercontent.com/assets/15892944/25108518/2365e612-238b-11e7-9d9c-00e6ee76f481.jpg') fixed center center no-repeat;
-      background-size: cover;
-      height: 100%;
+    #hero {
+      background: url('https://cloud.githubusercontent.com/assets/15892944/25108518/2365e612-238b-11e7-9d9c-00e6ee76f481.jpg') 50% 0 repeat fixed;
+      min-height: 500px;
+      position: relative;
+      display: table;
+      width: 100%;
+      padding: 40px 0;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    #hero article {
+      width: 100%;
+      text-align: center;
+      display: table-cell;
+      vertical-align: middle;
     }
 
     .navbar-nav>li>a {
