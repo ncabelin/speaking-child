@@ -3,7 +3,7 @@
   		font-family: 'Lato', sans-serif;
       font-size: 18px;
       height: 100%;
-      padding-top: 20px;
+      padding-top: 25px;
       color: black;
   	}
 
@@ -11,8 +11,14 @@
       color: black;
     }
 
+    .lead {
+      font-weight: 700;
+      font-size: 30px;
+    }
+
     #hero {
-      background: linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0.2)),url('https://cloud.githubusercontent.com/assets/15892944/25108518/2365e612-238b-11e7-9d9c-00e6ee76f481.jpg') 50% 0 repeat fixed;
+      background: linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0.2)),
+        url('../images/child3.jpg') 50% 0 repeat fixed;
       background-size: cover;
       min-height: 500px;
       position: relative;
@@ -54,10 +60,19 @@
       background-color: rgba(0,0,0,0);
     }
 
-  	h1,h2,h3,h4,.navbar-brand .title {
-  		font-family: 'Chewy', cursive;
+  	h1,h2,h3,h4,a#title.navbar-brand {
+  		font-family: 'Shadows Into Light Two', cursive;
       letter-spacing: 2px;
   	}
+
+    a#title.navbar-brand {
+      color: black;
+      font-size: 1.2em;
+    }
+
+    .features {
+      text-align: left;
+    }
 
   	tbody tr, .well.phrases:hover {
   		cursor: pointer;
