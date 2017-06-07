@@ -72,6 +72,7 @@
 
     .features {
       text-align: left;
+      font-weight: 300;
     }
 
   	tbody tr, .well.phrases:hover {
