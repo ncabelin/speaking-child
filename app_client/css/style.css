@@ -10,10 +10,6 @@
       background-size: cover;
   	}
 
-    .logo {
-      height: 80px;
-    }
-
     .well {
       background-color: rgba(0,0,0,0.3);
       border: 0;
@@ -52,7 +48,7 @@
 
     .navbar-default {
       border: 0;
-      background-color: rgba(0,0,0,0);
+      background-color: rgba(0,0,0,0.2);
     }
 
     .navbar-default .navbar-toggle, .navbar-default:hover {
@@ -144,6 +140,11 @@
 
     .btn {
       border-radius: 0;
+    }
+
+    footer p a {
+      color: black;
+      text-decoration: underline;
     }
 
     @media (max-width: 500px) {

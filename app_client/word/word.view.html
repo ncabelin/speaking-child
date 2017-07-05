@@ -1,13 +1,13 @@
 <navigation></navigation>
 <div ng-controller="wordCtrl as vm">
-<div data-spy="affix" data-offset-top="50" id="sub-menu">
+<div data-spy="affix" data-offset-top="80" id="sub-menu">
 	<div class="btn-group btn-group-justified">
 		<a class="btn btn-default btn-menu" ng-click="vm.showPane('word')"><b>WORDS</b></a>
 		<a class="btn btn-default btn-menu" ng-click="vm.showPane('phrase')"><b>PHRASES</b></a>
 		<a class="btn btn-default btn-menu" ng-click="vm.showPane('stat');vm.checkMatch()"><b>GUIDE</b></a>
 	</div>
 	<!-- Button trigger modal -->
-	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="add-btn">
+	<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="add-btn">
 	  ADD
 	</button>
 </div>
