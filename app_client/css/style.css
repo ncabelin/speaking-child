@@ -5,7 +5,20 @@
       height: 100%;
       padding-top: 25px;
       color: black;
+      background: linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0.2)),
+        url('../images/baby2.jpg') 50% 0 repeat fixed;
+      background-size: cover;
   	}
+
+    .logo {
+      height: 80px;
+    }
+
+    .well {
+      background-color: rgba(0,0,0,0.3);
+      border: 0;
+      border-radius: 0;
+    }
 
     .navbar-default .navbar-nav>li>a, a.navbar-brand.title {
       color: black;
@@ -17,10 +30,7 @@
     }
 
     #hero {
-      background: linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0.2)),
-        url('../images/child3.jpg') 50% 0 repeat fixed;
-      background-size: cover;
-      min-height: 500px;
+      min-height: 700px;
       position: relative;
       display: table;
       width: 100%;
@@ -42,7 +52,7 @@
 
     .navbar-default {
       border: 0;
-      background-color: #fddfa9;
+      background-color: rgba(0,0,0,0);
     }
 
     .navbar-default .navbar-toggle, .navbar-default:hover {
@@ -130,6 +140,10 @@
 
     h3 {
       margin-top: 10px;
+    }
+
+    .btn {
+      border-radius: 0;
     }
 
     @media (max-width: 500px) {
