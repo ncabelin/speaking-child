@@ -8,12 +8,19 @@
       background: linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0.2)),
         url('../images/baby2.jpg') 50% 0 repeat fixed;
       background-size: cover;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizelegibility;
   	}
 
     .well {
-      background-color: rgba(0,0,0,0.3);
+      margin-top: 10px;
+      background-color: rgba(0,0,0,0.2);
       border: 0;
       border-radius: 0;
+    }
+
+    hr {
+      border-top-color: #a8b0f9;
     }
 
     .navbar-default .navbar-nav>li>a, a.navbar-brand.title {
@@ -26,7 +33,7 @@
     }
 
     #hero {
-      min-height: 700px;
+      min-height: 600px;
       position: relative;
       display: table;
       width: 100%;
@@ -43,12 +50,12 @@
     }
 
     .navbar-nav>li>a {
-      text-align: center;
+      text-align: right;
     }
 
     .navbar-default {
       border: 0;
-      background-color: rgba(0,0,0,0.2);
+      background-color: rgba(0,0,0,0.1);
     }
 
     .navbar-default .navbar-toggle, .navbar-default:hover {
@@ -66,6 +73,11 @@
       background-color: rgba(0,0,0,0);
     }
 
+    .navbar-nav>li>a:hover {
+      background-color: rgba(0,0,0,0.4);
+      color: white;
+    }
+
   	h1,h2,h3,h4,a#title.navbar-brand {
   		font-family: 'Shadows Into Light Two', cursive;
       letter-spacing: 2px;
@@ -79,6 +91,7 @@
     .features {
       text-align: left;
       font-weight: 300;
+      font-size: 1.2em;
     }
 
   	tbody tr, .well.phrases:hover {
@@ -142,9 +155,34 @@
       border-radius: 0;
     }
 
+    #about {
+      padding: 50px 20px;
+      background-color: white;
+    }
+
+    #about .lead {
+      font-size: 1.2em;
+    }
+
+    .fa-child {
+      text-align: center;
+      font-size: 3em;
+    }
+
+    footer {
+      padding: 40px;
+      min-height: 300px;
+      position: relative;
+    }
+
     footer p a {
       color: black;
       text-decoration: underline;
+    }
+
+    footer .footer li a {
+      display: inline;
+      text-decoration: none;
     }
 
     @media (max-width: 500px) {
