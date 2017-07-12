@@ -4,8 +4,7 @@ body, html {
   height: 100%;
   padding-top: 25px;
   color: black;
-  background: linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0.3)),
-    url('../images/baby2.jpg') 50% 0 repeat fixed;
+  background: url('../images/baby2.jpg') 50% 0 repeat fixed;
   background-size: cover;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizelegibility;
@@ -23,7 +22,7 @@ hr {
 }
 
 .navbar-default .navbar-nav>li>a, a.navbar-brand.title {
-  color: black;
+  color: white;
 }
 
 .lead {
@@ -54,11 +53,17 @@ hr {
 
 .navbar-default {
   border: 0;
-  background-color: rgba(0,0,0,0.2);
+/*  background-color: rgba(121,125,139,0.6);*/
+  background: linear-gradient(to bottom,rgba(0,0,0,0.5) 0%,rgba(0,0,0,0.3) 75%,rgba(0,0,0,0) 100%);
 }
 
 .navbar-default .navbar-toggle, .navbar-default:hover {
   border-color: rgba(221, 221, 221, 0);
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+  color: white;
+  text-decoration: underline;
 }
 
 .navbar-toggle .icon-bar {
@@ -154,6 +159,14 @@ h3 {
   border-radius: 0;
 }
 
+.word-search {
+  padding: 10px;
+}
+
+.word-search a {
+  color: #23527c;
+}
+
 #about {
   padding: 50px 20px;
   background-color: white;
@@ -183,12 +196,12 @@ footer p a {
   margin-right: 20px;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 768px) {
   .btn-menu {
     font-size: 20px;
   }
   .navbar-default .navbar-toggle .icon-bar {
-    background-color: #222121;
+    background-color: white;
   }
   .navbar-default .navbar-nav>li>a {
     color: white;
