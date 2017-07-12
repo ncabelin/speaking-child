@@ -2,9 +2,9 @@
 <div ng-controller="wordCtrl as vm">
 <div data-spy="affix" data-offset-top="80" id="sub-menu">
 	<div class="btn-group btn-group-justified">
-		<a class="btn btn-default btn-menu" ng-click="vm.showPane('word')"><b>WORDS</b></a>
-		<a class="btn btn-default btn-menu" ng-click="vm.showPane('phrase')"><b>PHRASES</b></a>
-		<a class="btn btn-default btn-menu" ng-click="vm.showPane('stat');vm.checkMatch()"><b>GUIDE</b></a>
+		<a class="btn btn-default btn-menu" ng-class="{'active':vm.showWord}" ng-click="vm.showPane('word')" id="words-btn"><b>WORDS</b></a>
+		<a class="btn btn-default btn-menu" ng-class="{'active':vm.showPhrase}" ng-click="vm.showPane('phrase')" id="phrases-btn"><b>PHRASES</b></a>
+		<a class="btn btn-default btn-menu" ng-class="{'active':vm.showStat}" ng-click="vm.showPane('stat');vm.checkMatch()" id="guide-btn"><b>GUIDE</b></a>
 	</div>
 	<!-- Button trigger modal -->
 	<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="add-btn">
@@ -56,7 +56,8 @@
 	<div class="row" ng-show="vm.showWord" ng-init="vm.wordSort = 'word'">
 		<div class="col-md-12">
 			<h3>{{ vm.words.length }} WORDS</h3>
-			<input type="text" ng-model="vm.wordFilter" placeholder="Search..."> Sort by : <a href="" ng-click="vm.wordSort = '-date_added'">date added</a>, <a href="" ng-click="vm.wordSort = 'word'">alphabetical</a><br><br>
+			<div class="well">
+			<input type="text" ng-model="vm.wordFilter" placeholder="Search..." class="word-search"> Sort by : <a href="" ng-click="vm.wordSort = '-date_added'" class="btn btn-xs btn-primary">date added</a>, <a href="" ng-click="vm.wordSort = 'word'" class="btn btn-xs btn-primary">alphabetical</a></div>
 		</div>
 		<div class="col-md-3" ng-repeat="w in vm.words | orderBy : vm.wordSort | filter : vm.wordFilter ">
 			<div class="well phrases" ng-click="editWord = true" ng-hide="editWord" ng-init="editWord = false" ng-class="{ 'resolved': !w.status, 'unresolved': w.status }">
