@@ -1,4 +1,5 @@
 <navigation></navigation>
+<div id="word-view">
 <div ng-controller="wordCtrl as vm">
 <div data-spy="affix" data-offset-top="80" id="sub-menu">
 	<div class="btn-group btn-group-justified">
@@ -6,10 +7,6 @@
 		<a class="btn btn-default btn-menu" ng-class="{'active':vm.showPhrase}" ng-click="vm.showPane('phrase')" id="phrases-btn"><b>PHRASES</b></a>
 		<a class="btn btn-default btn-menu" ng-class="{'active':vm.showStat}" ng-click="vm.showPane('stat');vm.checkMatch()" id="guide-btn"><b>GUIDE</b></a>
 	</div>
-	<!-- Button trigger modal -->
-	<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="add-btn">
-	  ADD
-	</button>
 </div>
 <div class="container-fluid">
 	<div class="row">
@@ -45,7 +42,7 @@
 						<label>Date added</label>
 						<input type="date" ng-model="vm.new.date_added" class="form-control" placeholder="YYYY/MM/DD">
 					</div>
-					<button type="submit" class="btn btn-success" ng-click="vm.showAddForm = false; vm.alertMsg = false;vm.addWord(vm.new.word)" data-dismiss="modal">SUBMIT</button>
+					<button type="submit" class="btn btn-success" ng-click="vm.showAddForm = false; vm.alertMsg = false;vm.addWord(vm.new.word);vm.wordFilter = '';vm.phraseFilter = ''" data-dismiss="modal">SUBMIT</button>
 					<a class="btn btn-default" data-dismiss="modal">CANCEL</a>
 				</form>
 	      </div>
@@ -53,12 +50,19 @@
 	  </div>
 	</div>
 
+	<div class="text-center">
+		<button class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal" id="add-btn" type="button">ADD</button>
+	</div>
 	<div class="row" ng-show="vm.showWord" ng-init="vm.wordSort = 'word'">
 		<div class="col-md-12">
-			<h3>{{ vm.words.length }} WORDS</h3>
+			<h3><span class="length-window">{{ vm.words.length }}</span> total words</h3>
 			<div class="well">
-			<input type="text" ng-model="vm.wordFilter" placeholder="Search..." class="word-search"> Sort by : <a href="" ng-click="vm.wordSort = '-date_added'" class="btn btn-xs btn-primary">date added</a>, <a href="" ng-click="vm.wordSort = 'word'" class="btn btn-xs btn-primary">alphabetical</a></div>
+				<div class="word-search">
+			      <input type="text" class="form-control" ng-model="vm.wordFilter" placeholder="Search for...">
+		    </div>
+	 Sort by : <a href="" ng-click="vm.wordSort = '-date_added'" class="btn btn-xs btn-primary">date added</a>, <a href="" ng-click="vm.wordSort = 'word'" class="btn btn-xs btn-primary">alphabetical</a></div>
 		</div>
+
 		<div class="col-md-3" ng-repeat="w in vm.words | orderBy : vm.wordSort | filter : vm.wordFilter ">
 			<div class="well phrases" ng-click="editWord = true" ng-hide="editWord" ng-init="editWord = false" ng-class="{ 'resolved': !w.status, 'unresolved': w.status }">
 				<h3>{{ w.word }}</h3><br>
@@ -90,12 +94,16 @@
 		</div>
 	</div>
 
-	<div class="row" ng-show="vm.showPhrase">
+	<div class="row" ng-show="vm.showPhrase" ng-init="vm.phraseSort = 'phrase'">
 		<div class="col-md-12">
-			<h3>{{ vm.phrases.length }} PHRASES</h3>
-			<input type="text" ng-model="vm.phraseFilter" placeholder="Search..."><br><br>
+			<h3><span class="length-window">{{ vm.phrases.length }}</span> total phrases</h3>
+			<div class="well">
+				<div class="word-search">
+			      <input type="text" class="form-control" ng-model="vm.phraseFilter" placeholder="Search for...">
+		    </div>
+	 Sort by : <a href="" ng-click="vm.phraseSort = '-date_added'" class="btn btn-xs btn-primary">date added</a>, <a href="" ng-click="vm.phraseSort = 'phrase'" class="btn btn-xs btn-primary">alphabetical</a></div>
 		</div>
-		<div class="col-md-3" ng-repeat="p in vm.phrases | orderBy : 'phrase' | filter : vm.phraseFilter">
+		<div class="col-md-3" ng-repeat="p in vm.phrases | orderBy : vm.phraseSort | filter : vm.phraseFilter">
 			<div class="well phrases" ng-click="editPhrase = true" ng-hide="editPhrase" ng-init="editPhrase = false" ng-class="{ 'resolved': !p.status, 'unresolved': p.status }">
 				<h3>{{ p.phrase }}</h3><br>
 				{{ p.sound }}
@@ -140,5 +148,6 @@
 			</ul>
 		</div>
 	</div>
+</div>
 </div>
 </div>

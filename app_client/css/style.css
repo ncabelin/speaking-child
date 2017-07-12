@@ -82,9 +82,21 @@ hr {
   color: white;
 }
 
-h1,h2,h3,h4,a#title.navbar-brand {
+h1,h2,a#title.navbar-brand {
 	font-family: 'Shadows Into Light Two', cursive;
   letter-spacing: 2px;
+}
+
+h3 {
+  font-weight: bold;
+}
+
+.length-window {
+  background-color: black;
+  color: white;
+  font-size: 1.5em;
+  padding: 5px;
+  border-radius: 5px;
 }
 
 a#title.navbar-brand {
@@ -98,9 +110,13 @@ a#title.navbar-brand {
   font-size: 1.2em;
 }
 
+tbody tr, .well.phrases {
+  cursor: pointer;
+  border: 1px solid rgba(0,0,0,0);
+}
+
 tbody tr, .well.phrases:hover {
-	cursor: pointer;
-	border: 1px solid #b2b1b1;
+	border: 1px solid black;
 }
 
 .list-group:hover {
@@ -115,12 +131,17 @@ tbody tr, .well.phrases:hover {
   font-size: 18px;
 }
 
+#word-view {
+  background-color: #e4eac4;
+  height: 100%;
+}
+
 .resolved {
-  background-color: #7dd18f;
+  background-color: rgba(160,223,173,0.5);
 }
 
 .unresolved {
-  background-color: #d77b7b;
+  background-color: rgba(227,141,108,0.5);
 }
 
 .match {
@@ -145,12 +166,6 @@ tbody tr, .well.phrases:hover {
   top: 0;
 }
 
-#add-btn {
-  margin-left: 47.5%;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
 h3 {
   margin-top: 10px;
 }
@@ -161,10 +176,15 @@ h3 {
 
 .word-search {
   padding: 10px;
+  max-width: 500px;
 }
 
-.word-search a {
-  color: #23527c;
+#add-btn {
+  color: white;
+  background-color: #23527c;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 40%;
 }
 
 #about {

@@ -162,6 +162,7 @@
 						vm.phrases.push(result.data);
 						// reset add word form
 						vm.new = resetAddForm();
+						vm.showPane('phrase');
 					}, function(err) {
 						vm.alertMsg = 'Error adding Phrase';
 						console.log(err);
@@ -185,6 +186,7 @@
 					vm.words.push(result.data);
 					// reset add word form
 					vm.new = resetAddForm();
+					vm.showPane('word');
 				}, function(err) {
 					vm.alertMsg = 'Error adding Word';
 					console.log(err);
