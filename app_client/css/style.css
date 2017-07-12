@@ -119,6 +119,10 @@ tbody tr, .well.phrases:hover {
 	border: 1px solid black;
 }
 
+.addMsg {
+  color: green;
+}
+
 .list-group:hover {
   cursor: pointer;
 }

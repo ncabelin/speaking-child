@@ -18,6 +18,8 @@
 		vm.new = resetAddForm();
 		vm.resetForm = function() {
 			vm.new = resetAddForm();
+			vm.addWordMsg = false;
+			vm.addPhraseMsg = false;
 		};
 		vm.showAddForm = false;
 		vm.words = [];
@@ -151,7 +153,8 @@
 					for (var i = 0, x = vm.phrases.length; i < x; i++) {
 						// compare without regard to case
 						if (vm.phrases[i].phrase.toLowerCase() == word.toLowerCase()) {
-							return vm.alertMsg = phrase + ' was already recorded';
+							vm.phraseAddMsg = false;
+							return vm.alertMsg = word + ' was already recorded';
 						}
 					}
 				}
@@ -162,6 +165,7 @@
 						vm.phrases.push(result.data);
 						// reset add word form
 						vm.new = resetAddForm();
+						vm.addPhraseMsg = true;
 						vm.showPane('phrase');
 					}, function(err) {
 						vm.alertMsg = 'Error adding Phrase';
@@ -175,6 +179,7 @@
 				for (var i = 0, x = vm.words.length; i < x; i++) {
 					// compare without regard to case
 					if (vm.words[i].word.toLowerCase() == word.toLowerCase()) {
+						vm.wordAddMsg = false;
 						return vm.alertMsg = word + ' was already recorded';
 					}
 				}
@@ -186,6 +191,7 @@
 					vm.words.push(result.data);
 					// reset add word form
 					vm.new = resetAddForm();
+					vm.addWordMsg = true;
 					vm.showPane('word');
 				}, function(err) {
 					vm.alertMsg = 'Error adding Word';
