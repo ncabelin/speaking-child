@@ -88,7 +88,8 @@
 		};
 
 		var alter = function(arr, status) {
-			// alter array
+			// alter array converts date and checks if the sounds are alike
+			// to be able to display the right color for the word cell
 			for (var i = 0, x = arr.length; i < x; i++) {
 				// convert date
 				arr[i].date_added = new Date(arr[i].date_added);
@@ -243,6 +244,24 @@
 				}, function(err) {
 					vm.alertMsg = 'Error deleting phrase';
 				});
+		}
+
+		vm.logWords = function() {
+			//console.log(vm.words);
+			vm.dates = {};
+			for (var i = 0; i < vm.words.length; i++) {
+				var month = vm.words[i].date_added.getUTCMonth(),
+						day = vm.words[i].date_added.getUTCDate(),
+						year = vm.words[i].date_added.getUTCFullYear(),
+						c_date = month + '/' + day + '/' + year;
+
+				if (!vm.dates[c_date]) {
+					vm.dates[c_date] = 1;
+				} else {
+					vm.dates[c_date] += 1;
+				}
+			}
+			console.log(vm.dates)
 		}
 	}
 })();
