@@ -1,6 +1,7 @@
 <navigation></navigation>
 <div id="word-view">
 	<div ng-controller="wordCtrl as vm">
+		<!-- Tabs WORDS, PHRASES, GUIDE -->
 		<div data-spy="affix" data-offset-top="80" id="sub-menu">
 			<div class="btn-group btn-group-justified">
 				<a class="btn btn-default btn-menu" ng-class="{'active':vm.showWord}" ng-click="vm.showPane('word')" id="words-btn"><b>WORDS</b></a>
@@ -8,6 +9,8 @@
 				<a class="btn btn-default btn-menu" ng-class="{'active':vm.showStat}" ng-click="vm.showPane('stat');vm.checkMatch()" id="guide-btn"><b>GUIDE</b></a>
 			</div>
 		</div>
+
+		<!-- Alert Message -->
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-12 text-center">
@@ -16,7 +19,8 @@
 			</div>
 		</div>
 		<div class="container">
-			<!-- Modal -->
+
+			<!-- Add Word Modal -->
 			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 			  <div class="modal-dialog" role="document">
 			    <div class="modal-content">
@@ -50,9 +54,13 @@
 			  </div>
 			</div>
 
+			<!-- Add Button for enabling Modal -->
 			<div class="text-center">
-				<button class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal" id="add-btn" type="button">ADD</button>
+				<button ng-click="vm.logWords()" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal" id="add-btn" type="button">ADD</button>
 			</div>
+
+
+			<!-- WORDS panel -->
 			<div class="row" ng-show="vm.showWord" ng-init="vm.wordSort = '-date-added'">
 				<div class="col-md-12">
 					<h3><span class="length-window">{{ vm.words.length }}</span> total words<span ng-show="vm.addWordMsg" class="addMsg"> - <i class="fa fa-check"></i> 1 word added</span></h3>
@@ -63,6 +71,7 @@
 			 Sort by : <a href="" ng-click="vm.wordSort = '-date_added'" class="btn btn-xs btn-primary">date added</a>, <a href="" ng-click="vm.wordSort = 'word'" class="btn btn-xs btn-primary">alphabetical</a></div>
 				</div>
 
+				<!-- WORD Cells -->
 				<div class="col-md-3" ng-repeat="w in vm.words | orderBy : vm.wordSort | filter : vm.wordFilter ">
 					<div class="well phrases" ng-click="editWord = true" ng-hide="editWord" ng-init="editWord = false" ng-class="{ 'resolved': !w.status, 'unresolved': w.status }">
 						<h3>{{ w.word }}</h3><br>
@@ -94,6 +103,7 @@
 				</div>
 			</div>
 
+			<!-- PHRASES panel -->
 			<div class="row" ng-show="vm.showPhrase" ng-init="vm.phraseSort = '-date-added'">
 				<div class="col-md-12">
 					<h3><span class="length-window">{{ vm.phrases.length }}</span> total phrases<span ng-show="vm.addPhraseMsg" class="addMsg"> - <i class="fa fa-check"></i> 1 phrase added</span></h3>
@@ -134,6 +144,7 @@
 				</div>
 			</div>
 
+			<!-- GUIDE (Stats) panel -->
 			<div class="row" ng-show="vm.showStat" ng-init="vm.order = 'category'">
 				<div class="col-md-6 col-md-offset-3">
 					<ul class="list-group">
