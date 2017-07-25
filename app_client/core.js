@@ -26,6 +26,10 @@
 					templateUrl: 'help/help.view.html'
 				})
 
+				.when('/chart', {
+					templateUrl: 'chart/chart.view.html'
+				})
+
 				.otherwise({ redirectTo: '/'});
 
 			$locationProvider.html5Mode(true);
