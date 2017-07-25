@@ -6,6 +6,7 @@
 		chartCtrl.$inject = ['$http', 'wordData'];
 		function chartCtrl($http, wordData) {
       var vm = this;
+      vm.loading = true;
 
       // fetch data
       wordData.readWords()
@@ -14,6 +15,7 @@
           console.log(vm.words);
           vm.createChartData();
           vm.drawChart();
+          vm.loading = false;
         });
 
         // group words by date for charting
@@ -57,12 +59,82 @@
     			for (var i = 1, j = vm.dateList.length; i < j ;i++) {
             vm.dateList[i].number += vm.dateList[i-1].number;
           }
-
-          console.log(vm.dateList);
     		};
 
+        // Draws d3 chart
         vm.drawChart = function() {
+          var margin = {top: 20, right: 0, bottom: 100, left: 80},
+              width = 800 - margin.left - margin.right,
+              height = 600 - margin.top - margin.bottom;
 
+          // Parse the date / time
+          var	parseDate = d3.time.format("%Y-%m-%d").parse;
+
+          var x = d3.scale.ordinal().rangeRoundBands([0, width], .15);
+
+          var y = d3.scale.linear().range([height, 0]);
+
+          console.log(d3.time.year);
+
+          var xAxis = d3.svg.axis()
+              .scale(x)
+              .orient("bottom")
+              .ticks(d3.time.year, 10)
+              .tickFormat(d3.time.format("%Y-%m"));
+
+          var yAxis = d3.svg.axis()
+              .scale(y)
+              .orient("left")
+              .ticks(20);
+
+          var svg = d3.select("#chart").append("svg")
+              .attr("width", width + margin.left + margin.right)
+              .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+              .attr("transform",
+                    "translate(" + margin.left + "," + margin.top + ")");
+
+          function renderBar(data) {
+
+              data.forEach(function(d) {
+                  d.date = new Date(d.date);
+              });
+
+            x.domain(data.map(function(d) { return d.date; }));
+            y.domain([d3.min(data, function(d) { return d.number; }), d3.max(data, function(d) { return d.number; })]);
+
+            svg.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis)
+              .selectAll("text")
+                .style("text-anchor", "end")
+                .attr("dx", "-.8em")
+                .attr("dy", "-.55em")
+                .attr("transform", "rotate(-90)" );
+
+            svg.append("g")
+                .attr("class", "y axis")
+                .call(yAxis)
+              .append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 6)
+                .attr("dy", ".71em")
+                .style("text-anchor", "end")
+                .text("Number of words");
+
+            svg.selectAll("bar")
+                .data(data)
+              .enter().append("rect")
+                .style("fill", "steelblue")
+                .attr("x", function(d) { return x(d.date); })
+                .attr("width", x.rangeBand())
+                .attr("y", function(d) { return y(d.number); })
+                .attr("height", function(d) { return height - y(d.number); });
+
+          }
+
+          renderBar(vm.dateList);
         };
 		}
 })();

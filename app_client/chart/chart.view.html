@@ -1,16 +1,49 @@
 <navigation></navigation>
-<div class="container" ng-controller="chartCtrl as vm">
+<style>
+
+	.axis {
+	  font: 10px sans-serif;
+	}
+
+	.axis path,
+	.axis line {
+	  fill: none;
+	  stroke: #000;
+	  shape-rendering: crispEdges;
+	}
+
+  .table {
+    background-color: #4682b4;
+    color: white;
+  }
+
+  #chartBody {
+    background-color: #e4eac4;
+  }
+
+	</style>
+<div class="container-fluid" ng-controller="chartCtrl as vm" id="chartBody">
   <div class="row">
     <div class="col-md-12">
-      <h1 class="text-center">Chart</h1>
+      <h3 class="text-center"><span ng-hide="vm.loading">Progress Chart</span><span ng-show="vm.loading">Loading...</span></h3>
+      <hr>
     </div>
   </div>
+  <div id="chart" class="center-block text-center"></div>
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      <ul ng-repeat="d in vm.dateList">
-        <li>{{ d.date }} - {{ d.number }}</li>
-      </ul>
+      <table class="table table-condensed">
+        <thead>
+          <td>DATE RECORDED</td>
+          <td>NUMBER OF WORDS</td>
+        </thead>
+        <tbody>
+          <tr ng-repeat="d in vm.dateList">
+            <td>{{ d.date | date }}</td>
+            <td>{{ d.number }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
-<script src="http://d3js.org/d3.v3.min.js"></script>
