@@ -1,8 +1,16 @@
 <navigation></navigation>
-<div class="container">
+<div class="container" ng-controller="chartCtrl as vm">
   <div class="row">
     <div class="col-md-12">
-      <h1 class="text-center">Help</h1>
+      <h1 class="text-center">Chart</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <ul ng-repeat="d in vm.dateList">
+        <li>{{ d.date }} - {{ d.number }}</li>
+      </ul>
     </div>
   </div>
 </div>
+<script src="http://d3js.org/d3.v3.min.js"></script>
