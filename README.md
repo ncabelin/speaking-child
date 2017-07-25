@@ -3,12 +3,15 @@
 
 MEAN Stack application that assists parents/caregivers in monitoring and developing their kid's speech therapy.
 
-1. Add words to a database of words
-2. If you add 2 or more words the element will be classified as a phrase
+1. Add words to a database of words, show words and filter by search term
+2. If you add 2 or more words the element will be saved as a phrase
 3. Display statistics (single words, 2 word phrases, 3 word phrases, different sounds)
-4. Display history line graph of progress 
-5. Add weekly goals
-6. 
+4. Display history line graph of progress via d3 (in progress...)
+5. A guide is present that contains recommended words to practice and shows which words are already in the child's vocabulary
+
+## To Do
+1. Add admin panel
+2. Add 'forgot password'
 
 
 ## Restful API Dependencies
@@ -49,7 +52,7 @@ server.js - combine all server code together
 		words.js - CRUD for word
 		goals.js - CRUD for goals
 		progress.js - display stats, graphs
-		admin.js - 
+		admin.js -
 
 	/models
 		users.js - user model, with validating and setting passwords
@@ -63,7 +66,7 @@ server.js - combine all server code together
 /app_client
 ```
 
-List a child's 
+List a child's
 
 ```
 User
@@ -97,7 +100,7 @@ Guide
 ```
 /app_client
 	index.html -
-	core.js - 
+	core.js -
 	/auth
 		auth.controller.js
 		auth.view.html
@@ -118,4 +121,3 @@ Guide
 	/images
 
 ```
-
