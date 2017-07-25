@@ -63,7 +63,7 @@
 			<!-- WORDS panel -->
 			<div class="row" ng-show="vm.showWord" ng-init="vm.wordSort = '-date-added'">
 				<div class="col-md-12">
-					<h3><span class="length-window">{{ vm.words.length }}</span> total words<span ng-show="vm.addWordMsg" class="addMsg"> - <i class="fa fa-check"></i> 1 word added</span></h3>
+					<h3><span class="length-window"><span ng-show="vm.words.length">{{ vm.words.length }}</span><span ng-show="vm.loadingMsg">Loading...</span></span> total words<span ng-show="vm.addWordMsg" class="addMsg"> - <i class="fa fa-check"></i> 1 word added</span></h3>
 					<div class="well">
 						<div class="word-search">
 					      <input type="text" class="form-control" ng-model="vm.wordFilter" placeholder="Search for...">
@@ -153,7 +153,7 @@
 								<i class="fa fa-plus-circle" aria-hidden="true" ng-hide="showGroup"></i>
 								<i class="fa fa-minus-circle" aria-hidden="true" ng-show="showGroup"></i></span></h2>
 							<div class="well" ng-show="showGroup">
-								<span ng-class="{ 'btn-success': h.status }" ng-repeat="h in g" class="guideWord btn btn-default" ng-click="vm.guideAddWord(h.word);vm.showAddForm = true" data-toggle="modal" data-target="#myModal"><b>{{ h.word }}</b></span> 
+								<span ng-class="{ 'btn-success': h.status }" ng-repeat="h in g" class="guideWord btn btn-default" ng-click="vm.guideAddWord(h.word);vm.showAddForm = true" data-toggle="modal" data-target="#myModal"><b>{{ h.word }}</b></span>
 							</div>
 						</li>
 					</ul>

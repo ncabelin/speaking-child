@@ -25,6 +25,7 @@
 		vm.words = [];
 		vm.phrases = [];
 		vm.showWord = true;
+		vm.loadingMsg = true;
 		vm.showPane = function(pane) {
 			if (pane == 'word') {
 				vm.showPhrase = false;
@@ -107,6 +108,8 @@
 			.then(function(result) {
 				vm.words = result.data.words;
 				vm.words = alter(vm.words, 'word');
+				vm.loadingMsg = false;
+				vm.logWords();
 				// save word look up in an array
 			}, function(err) {
 				vm.alertMsg += 'Error :' + err;
@@ -246,22 +249,39 @@
 				});
 		}
 
+		// group words by date for charting
 		vm.logWords = function() {
-			//console.log(vm.words);
 			vm.dates = {};
+			vm.dateList = [];
+			// iterate over all words
 			for (var i = 0; i < vm.words.length; i++) {
 				var month = vm.words[i].date_added.getUTCMonth(),
 						day = vm.words[i].date_added.getUTCDate(),
 						year = vm.words[i].date_added.getUTCFullYear(),
 						c_date = month + '/' + day + '/' + year;
 
+				// check if dates exists
+				// then increment or create counter
 				if (!vm.dates[c_date]) {
 					vm.dates[c_date] = 1;
 				} else {
 					vm.dates[c_date] += 1;
 				}
 			}
-			console.log(vm.dates)
+			console.log(vm.dates);
+
+			// push to array
+			for (var key in vm.dates) {
+				if (vm.dates.hasOwnProperty(key)) {
+					vm.dateList.push({
+						'date': new Date(key),
+						'number': vm.dates[key]
+					});
+				}
+			}
+
+			console.log(vm.dateList);
 		}
+
 	}
 })();
