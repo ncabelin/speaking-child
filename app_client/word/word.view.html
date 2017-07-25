@@ -1,4 +1,10 @@
 <navigation></navigation>
+<style>
+	#words-panel {
+		height: 500px;
+		overflow: scroll;
+	}
+</style>
 <div id="word-view">
 	<div ng-controller="wordCtrl as vm">
 		<!-- Tabs WORDS, PHRASES, GUIDE -->
@@ -74,7 +80,9 @@
 				    </div>
 			 Sort by : <a href="" ng-click="vm.wordSort = '-date_added'" class="btn btn-xs btn-primary">date added</a>, <a href="" ng-click="vm.wordSort = 'word'" class="btn btn-xs btn-primary">alphabetical</a></div>
 				</div>
+			</div>
 
+			<div class="row" id="words-panel">
 				<!-- WORD Cells -->
 				<div class="col-md-3" ng-repeat="w in vm.words | orderBy : vm.wordSort | filter : vm.wordFilter ">
 					<div class="well phrases" ng-click="editWord = true" ng-hide="editWord" ng-init="editWord = false" ng-class="{ 'resolved': !w.status, 'unresolved': w.status }">
