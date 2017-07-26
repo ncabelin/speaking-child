@@ -17,7 +17,6 @@
 				.login(vm.credentials)
 				.then(function(result) {
 					vm.alertMsg = false;
-					console.log('logged in');
 					auth.saveToken(result.data.token);
 					$location.path('word');
 				}, function(err) {
