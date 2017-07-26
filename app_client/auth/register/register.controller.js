@@ -17,8 +17,6 @@
 		};
 
 		vm.onSubmit = function() {
-			console.log('Registration submitting');
-			console.log(vm.credentials);
 			if (vm.credentials.password !== vm.credentials.re_password) {
 				return vm.alertMsg = 'Password must match Re-enter password field';
 			}
@@ -33,7 +31,8 @@
 						console.log('Registered');
 						$location.path('word');
 					}, function(err) {
-						vm.alertMsg = 'Unable to register';
+						vm.alertMsg = 'Unable to register, please choose a different username or enter a correct date of birth in MM/DD/YYYY format';
+						console.log(err);
 					});
 			} else {
 				vm.alertMsg = 'Please fill up all fields';
