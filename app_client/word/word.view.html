@@ -7,6 +7,7 @@
 </style>
 <div id="word-view">
 	<div ng-controller="wordCtrl as vm">
+
 		<!-- Tabs WORDS, PHRASES, GUIDE -->
 		<div data-spy="affix" data-offset-top="80" id="sub-menu">
 			<div class="btn-group btn-group-justified">
@@ -66,7 +67,7 @@
 
 			<!-- Add Button for enabling Modal -->
 			<div class="text-center">
-				<button ng-click="vm.logWords()" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal" id="add-btn" type="button">ADD</button>
+				<button ng-click="vm.logWords()" class="btn btn-success" data-toggle="modal" data-target="#myModal" id="add-btn" type="button">ADD</button>
 			</div>
 
 
@@ -74,10 +75,10 @@
 		<div ng-show="vm.showWord">
 			<div class="row" ng-init="vm.wordSort = '-date-added'">
 				<div class="col-md-12">
-					<h3><span class="length-window"><span ng-show="vm.words.length">{{ vm.words.length }}</span><span ng-show="vm.loadingMsg">Loading...</span></span> total words<span ng-show="vm.addWordMsg" class="addMsg"> - <i class="fa fa-check"></i> 1 word added</span></h3>
-					<div class="well">
+					<h3><span class="length-window"><span ng-hide="vm.loadingMsg">{{ vm.words.length }}</span><span ng-show="vm.loadingMsg">Loading...</span></span> total words<span ng-show="vm.addWordMsg" class="addMsg"> - <i class="fa fa-check"></i> 1 word added</span></h3>
+					<div class="well search">
 						<div class="word-search">
-					      <input type="text" class="form-control" ng-model="vm.wordFilter" placeholder="Search for...">
+					      <input type="text" class="form-control" ng-model="vm.wordFilter" placeholder="&#xF002;" style="font-family:Arial, FontAwesome" />
 				    </div>
 			 Sort by : <a href="" ng-click="vm.wordSort = '-date_added'" class="btn btn-xs btn-primary">date added</a>, <a href="" ng-click="vm.wordSort = 'word'" class="btn btn-xs btn-primary">alphabetical</a></div>
 				</div>
