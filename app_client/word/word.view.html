@@ -71,7 +71,8 @@
 
 
 			<!-- WORDS panel -->
-			<div class="row" ng-show="vm.showWord" ng-init="vm.wordSort = '-date-added'">
+		<div ng-show="vm.showWord">
+			<div class="row" ng-init="vm.wordSort = '-date-added'">
 				<div class="col-md-12">
 					<h3><span class="length-window"><span ng-show="vm.words.length">{{ vm.words.length }}</span><span ng-show="vm.loadingMsg">Loading...</span></span> total words<span ng-show="vm.addWordMsg" class="addMsg"> - <i class="fa fa-check"></i> 1 word added</span></h3>
 					<div class="well">
@@ -114,6 +115,7 @@
 					</div>
 				</div>
 			</div>
+		</div>
 
 			<!-- PHRASES panel -->
 			<div class="row" ng-show="vm.showPhrase" ng-init="vm.phraseSort = '-date-added'">
