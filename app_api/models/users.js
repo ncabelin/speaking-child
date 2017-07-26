@@ -48,12 +48,11 @@ userSchema.methods.validPassword = function(password) {
 userSchema.methods.generateJwt = function() {
 	var expiry = new Date();
 	expiry.setDate(expiry.getDate() + 7);
-	console.log(expiry);
-	console.log(parseInt(expiry.getTime() / 1000));
 	return jwt.sign({
 		_id: this._id,
 		username: this.username,
 		child_name: this.child_name,
+		dob: this.dob,
 		exp: parseInt(expiry.getTime() / 1000)
 	}, config().secret_token);
 };
