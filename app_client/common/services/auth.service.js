@@ -22,6 +22,7 @@
 				payload = token.split('.')[1];
 				payload = $window.atob(payload);
 				payload = JSON.parse(payload);
+				console.log(payload);
 				return payload.exp > Date.now() / 1000;
 			} else {
 				return false;
@@ -36,7 +37,8 @@
 				payload = JSON.parse(payload);
 				return {
 					user_id: payload._id,
-					child_name: payload.child_name
+					child_name: payload.child_name,
+					dob: payload.dob
 				};
 			}
 		};
