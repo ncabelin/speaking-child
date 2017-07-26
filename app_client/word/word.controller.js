@@ -26,7 +26,17 @@
 		vm.phrases = [];
 		vm.showWord = true;
 		vm.loadingMsg = true;
-		vm.alertMsg = vm.successMsg = '';
+		vm.alert = function(message, status) {
+			if (status === 'alert') {
+				vm.alertMsg = message;
+				vm.successMsg = '';
+				return
+			} else if (status === 'none') {
+				vm.alertMsg = vm.successMsg = message;
+			}
+			vm.alertMsg = '';
+			vm.successMsg = message;
+		}
 		vm.showPane = function(pane) {
 			if (pane == 'word') {
 				vm.showPhrase = false;
@@ -112,7 +122,7 @@
 				vm.loadingMsg = false;
 				// save word look up in an array
 			}, function(err) {
-				vm.alertMsg += 'Error :' + err;
+				vm.alert('Error :' + err, 'alert');
 				console.log(err);
 			});
 
@@ -121,19 +131,18 @@
 				vm.phrases = result.data.phrases;
 				if (vm.phrases[0] !== null) {
 					vm.phrases = alter(vm.phrases, 'phrase');
-					console.log(vm.phrases);
 				} else {
 					vm.phrases = [];
 				}
 			}, function(err) {
-				vm.alertMsg += 'Error :' + err;
+				vm.alert('Error :' + err, 'alert');
 				console.log(err);
 			});
 
 		vm.addWord = function(word) {
 			// check if blank input
 			if (!vm.new.word) {
-				return vm.alertMsg = 'Word field required';
+				return vm.alert('Word field required', 'alert');
 			}
 
 			// auto-capitalize word and sound
@@ -158,7 +167,7 @@
 						// compare without regard to case
 						if (vm.phrases[i].phrase.toLowerCase() == word.toLowerCase()) {
 							vm.phraseAddMsg = false;
-							return vm.alertMsg = word + ' was already recorded';
+							return vm.alert('"' + word + '" was already recorded', 'alert');
 						}
 					}
 				}
@@ -169,10 +178,10 @@
 						vm.phrases.push(result.data);
 						// reset add word form
 						vm.new = resetAddForm();
-						vm.addPhraseMsg = true;
+						vm.alert('"' + result.data.phrase + '" successfully added','success');
 						vm.showPane('phrase');
 					}, function(err) {
-						vm.alertMsg = 'Error adding Phrase';
+						vm.alert('Error adding Phrase','alert');
 						console.log(err);
 					});
 
@@ -184,7 +193,7 @@
 					// compare without regard to case
 					if (vm.words[i].word.toLowerCase() == word.toLowerCase()) {
 						vm.wordAddMsg = false;
-						return vm.alertMsg = '"' + word + '" was already recorded';
+						return vm.alert('"' + word + '" was already recorded', 'alert');
 					}
 				}
 				wordData.addWord(vm.new)
@@ -195,10 +204,10 @@
 					vm.words.push(result.data);
 					// reset add word form
 					vm.new = resetAddForm();
-					vm.successMsg = '"' + result.data.word + '" successfully added';
+					vm.alert('"' + result.data.word + '" successfully added','success');
 					vm.showPane('word');
 				}, function(err) {
-					vm.alertMsg = 'Error adding Word';
+					vm.alert('Error adding Word', 'alert');
 					console.log(err);
 				});
 			}
@@ -211,7 +220,7 @@
 					vm.words[index].status = (vm.words[index].word !== vm.words[index].sound) ? true : false;
 					console.log('Word edited successfully');
 				}, function(err) {
-					vm.alertMsg = 'Error editing word';
+					vm.alert('Error editing word','alert');
 				});
 		};
 
@@ -225,7 +234,7 @@
 				.then(function(result) {
 					console.log('Phrase edited successfully');
 				}, function(err) {
-					vm.alertMsg = 'Error editing phrase';
+					vm.alert('Error editing phrase','alert');
 				});
 		};
 
@@ -234,8 +243,9 @@
 				.then(function(result) {
 					var index = vm.words.indexOf(obj);
 					vm.words.splice(index, 1);
+					vm.alert('','none');
 				}, function(err) {
-					vm.alertMsg = 'Error deleting word';
+					vm.alert('Error deleting word','alert');
 				});
 		}
 
@@ -244,8 +254,9 @@
 				.then(function(result) {
 					var index = vm.phrases.indexOf(obj);
 					vm.phrases.splice(index, 1);
+					vm.alert('','none');
 				}, function(err) {
-					vm.alertMsg = 'Error deleting phrase';
+					vm.alert('Error deleting phrase','alert');
 				});
 		}
 

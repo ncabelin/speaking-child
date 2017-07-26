@@ -11,9 +11,9 @@
 		<!-- Tabs WORDS, PHRASES, GUIDE -->
 		<div data-spy="affix" data-offset-top="80" id="sub-menu">
 			<div class="btn-group btn-group-justified">
-				<a class="btn btn-default btn-menu" ng-class="{'active':vm.showWord}" ng-click="vm.showPane('word')" id="words-btn"><b>WORDS</b></a>
-				<a class="btn btn-default btn-menu" ng-class="{'active':vm.showPhrase}" ng-click="vm.showPane('phrase')" id="phrases-btn"><b>PHRASES</b></a>
-				<a class="btn btn-default btn-menu" ng-class="{'active':vm.showStat}" ng-click="vm.showPane('stat');vm.checkMatch()" id="guide-btn"><b>GUIDE</b></a>
+				<a class="btn btn-default btn-menu" ng-class="{'active':vm.showWord}" ng-click="vm.showPane('word');vm.alert('','none')" id="words-btn"><b>WORDS</b></a>
+				<a class="btn btn-default btn-menu" ng-class="{'active':vm.showPhrase}" ng-click="vm.showPane('phrase');vm.alert('','none')" id="phrases-btn"><b>PHRASES</b></a>
+				<a class="btn btn-default btn-menu" ng-class="{'active':vm.showStat}" ng-click="vm.showPane('stat');vm.checkMatch();vm.alert('','none')" id="guide-btn"><b>GUIDE</b></a>
 			</div>
 		</div>
 
