@@ -8,9 +8,10 @@ MEAN Stack application that assists parents/caregivers in monitoring and develop
 5. A guide is present that contains recommended words to practice and shows which words are already in the child's vocabulary
 
 ## To Do
-1. Add admin panel
-2. Add 'reset/forgot password'
+1. Add admin panel for managing users
+2. Add 'reset/forgot password' via e-mail / express-mailer
 3. Add age instead of date in bar chart, reduce ticks
+4. Add Google Analytics
 
 ## Restful API Dependencies
 1. express
@@ -23,8 +24,9 @@ MEAN Stack application that assists parents/caregivers in monitoring and develop
 8. passport-local
 9. express-jwt
 
-## Angular 1.x Dependencies
+## Front-end Dependencies
 1. D3.js
+2. angularJS 1.x
 
 ## API Route Structure
 
