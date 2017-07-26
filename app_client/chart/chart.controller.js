@@ -3,8 +3,8 @@
 		.module('speakingChild')
 		.controller('chartCtrl', chartCtrl);
 
-		chartCtrl.$inject = ['$http', 'wordData'];
-		function chartCtrl($http, wordData) {
+		chartCtrl.$inject = ['$http', 'wordData', 'auth'];
+		function chartCtrl($http, wordData, auth) {
       var vm = this;
       vm.loading = true;
 
@@ -12,7 +12,8 @@
       wordData.readWords()
         .then(function(result) {
           vm.words = result.data.words;
-          console.log(vm.words);
+          // get child's birthday
+          vm.dob = auth.currentUser().dob;
           vm.createChartData();
           vm.drawChart();
           vm.loading = false;
@@ -25,9 +26,9 @@
     			// iterate over all words
     			for (var i = 0; i < vm.words.length; i++) {
             var date = new Date(vm.words[i].date_added);
-    				var month = date.getUTCMonth(),
-    						day = date.getUTCDate(),
-    						year = date.getUTCFullYear(),
+    				var month = date.getMonth(),
+    						day = date.getDate(),
+    						year = date.getFullYear(),
     						c_date = month + '/' + day + '/' + year;
 
     				// check if dates exists
@@ -40,10 +41,14 @@
     			}
 
     			// push to array
+          var dob = new Date(vm.dob);
     			for (var key in vm.dates) {
     				if (vm.dates.hasOwnProperty(key)) {
+              var age = new Date(new Date(key) - dob).getTime();
     					vm.dateList.push({
-    						'date': key,
+                'date': key,
+                // age in months
+    						'age': Math.round((age * 3.8027) / 10000000000),
     						'number': vm.dates[key]
     					});
     				}
@@ -79,13 +84,13 @@
           var xAxis = d3.svg.axis()
               .scale(x)
               .orient("bottom")
-              .ticks(d3.time.year, 10)
+              .ticks(d3.time.months, 3)
               .tickFormat(d3.time.format("%Y-%m"));
 
           var yAxis = d3.svg.axis()
               .scale(y)
               .orient("left")
-              .ticks(20);
+              .ticks(10);
 
           var svg = d3.select("#chart").append("svg")
               .attr("width", width + margin.left + margin.right)
