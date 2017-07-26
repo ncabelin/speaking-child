@@ -1,18 +1,16 @@
 # Speaking Child
-----------------
-
 MEAN Stack application that assists parents/caregivers in monitoring and developing their kid's speech therapy.
 
-1. Add words to a database of words, show words and filter by search term
+1. Add words to a database of words and phrases with a filter by search term
 2. If you add 2 or more words the element will be saved as a phrase
 3. Display statistics (single words, 2 word phrases, 3 word phrases, different sounds)
-4. Display history line graph of progress via d3 (in progress...)
+4. Display history bar graph of progress via d3.js
 5. A guide is present that contains recommended words to practice and shows which words are already in the child's vocabulary
 
 ## To Do
 1. Add admin panel
-2. Add 'forgot password'
-
+2. Add 'reset/forgot password'
+3. Add age instead of date in bar chart, reduce ticks
 
 ## Restful API Dependencies
 1. express
@@ -26,7 +24,7 @@ MEAN Stack application that assists parents/caregivers in monitoring and develop
 9. express-jwt
 
 ## Angular 1.x Dependencies
-
+1. D3.js
 
 ## API Route Structure
 
@@ -121,3 +119,8 @@ Guide
 	/images
 
 ```
+### Author
+Neptune Michael Cabelin
+
+### License
+MIT
