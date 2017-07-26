@@ -26,6 +26,7 @@
 		vm.phrases = [];
 		vm.showWord = true;
 		vm.loadingMsg = true;
+		vm.alertMsg = vm.successMsg = '';
 		vm.showPane = function(pane) {
 			if (pane == 'word') {
 				vm.showPhrase = false;
@@ -46,12 +47,12 @@
 		vm.guideMatches = [];
 
 		vm.checkMatch = function() {
-			// check for match in guide
+			// check for match in GUIDE tab
 			vm.guide = [];
 			vm.guideMatches = [];
 			vm.guideObj = {};
 
-			// create initial data structure from wordData guide
+			// create initial data structure from GUIDE tab
 			for (var key in wordData.guide) {
 				if (wordData.guide.hasOwnProperty(key)) {
 					for (var i = 0, j = wordData.guide[key].length; i < j; i++) {
@@ -66,7 +67,7 @@
 				}
 			}
 
-			// check for matches on all recorded words
+			// check for matches on all recorded words for the GUIDE tab
 			vm.words.forEach(function(data) {
 				vm.guide.forEach(function(x) {
 					if (x.word.toLowerCase() === data.word.toLowerCase()) {
@@ -183,7 +184,7 @@
 					// compare without regard to case
 					if (vm.words[i].word.toLowerCase() == word.toLowerCase()) {
 						vm.wordAddMsg = false;
-						return vm.alertMsg = word + ' was already recorded';
+						return vm.alertMsg = '"' + word + '" was already recorded';
 					}
 				}
 				wordData.addWord(vm.new)
@@ -194,7 +195,7 @@
 					vm.words.push(result.data);
 					// reset add word form
 					vm.new = resetAddForm();
-					vm.addWordMsg = true;
+					vm.successMsg = '"' + result.data.word + '" successfully added';
 					vm.showPane('word');
 				}, function(err) {
 					vm.alertMsg = 'Error adding Word';
