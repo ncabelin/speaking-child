@@ -206,13 +206,17 @@ h3 {
   background-color: white;
 }
 
-#about h2 {
+#about h3 {
   font-size: 1.5em;
 }
 
 .fa-child {
   text-align: center;
   font-size: 3em;
+}
+
+ol {
+	line-height: 2;
 }
 
 footer {
@@ -232,8 +236,12 @@ footer p a {
 }
 
 @media screen and (max-width: 480px) {
-	#about h2 {
+	#about h3 {
 	  font-size: 2em;
+	}
+
+	.features {
+		font-size: 1em;
 	}
 }
 
