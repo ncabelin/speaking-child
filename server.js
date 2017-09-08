@@ -9,7 +9,7 @@ var express = require('express'),
 		ip = process.env.IP,
 		methodOverride = require('method-override'),
 		config = require('./app_api/config/config'),
-		routesApi = require('./app_api/routes/routes'),
+		routes = require('./app_api/routes/routes'),
 		passport = require('passport');
 
 require('./app_api/config/passport');
@@ -38,7 +38,7 @@ app.use(methodOverride());
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/app_client'));
 app.use(passport.initialize());
-app.use(routesApi);
+app.use(routes);
 app.use(function(err, req, res, next) {
 	if (err.name == 'UnauthorizedError') {
 		res.status(401).json({ 'message': err.name + ':'
