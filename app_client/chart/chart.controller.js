@@ -19,127 +19,124 @@
           vm.loading = false;
         });
 
-        // group words by date for charting
-    		vm.createChartData = function() {
-    			vm.dates = {};
-    			vm.dateList = [];
-    			// iterate over all words
-    			for (var i = 0; i < vm.words.length; i++) {
-            var date = new Date(vm.words[i].date_added);
-    				var month = date.getMonth(),
-    						day = date.getDate(),
-    						year = date.getFullYear(),
-    						c_date = month + '/' + day + '/' + year;
+      // group words by date for charting
+  		vm.createChartData = function() {
+  			vm.dates = {};
+  			vm.dateList = [];
+  			// iterate over all words
+  			for (var i = 0; i < vm.words.length; i++) {
+          var date = new Date(vm.words[i].date_added);
+  				var month = date.getMonth(),
+  						year = date.getFullYear(),
+  						c_date = month + '/' + year;
 
-    				// check if dates exists
-    				// then increment or create counter
-    				if (!vm.dates[c_date]) {
-    					vm.dates[c_date] = 1;
-    				} else {
-    					vm.dates[c_date] += 1;
-    				}
-    			}
+  				// check if dates exists
+  				// then increment or create counter
+  				if (!vm.dates[c_date]) {
+  					vm.dates[c_date] = 1;
+  				} else {
+  					vm.dates[c_date] += 1;
+  				}
+  			}
 
-    			// push to array
-          var dob = new Date(vm.dob);
-    			for (var key in vm.dates) {
-    				if (vm.dates.hasOwnProperty(key)) {
-              var age = new Date(new Date(key) - dob).getTime();
-    					vm.dateList.push({
-                'date': key,
-                // age in months
-    						'age': Math.round((age * 3.8027) / 10000000000),
-    						'number': vm.dates[key]
-    					});
-    				}
-    			}
+        console.log(vm.dates);
 
-          // date sorting algorithm
-          vm.dateList.sort(function(a, b) {
-            return new Date(a.date) - new Date(b.date);
-          });
+  			// push to array
+        var dob = new Date(vm.dob);
+  			for (var key in vm.dates) {
+  				if (vm.dates.hasOwnProperty(key)) {
+            var date = key.split('/');
+            var month = date[0];
+            var year = date[1];
+            var date_str = month + '/3/' + year;
+            console.log(date_str);
+            var age = new Date(new Date(date_str) - dob).getTime();
+  					vm.dateList.push({
+              'date': date_str,
+              // age in months
+  						'age': Math.round((age * 3.8027) / 10000000000),
+  						'number': vm.dates[key]
+  					});
+  				}
+  			}
 
-          // increment numbers of words for each date
-          // to show how much the increase in words are
-    			for (var i = 1, j = vm.dateList.length; i < j ;i++) {
-            vm.dateList[i].number += vm.dateList[i-1].number;
-          }
-    		};
+        console.log(vm.dateList);
 
-        // Draws d3 chart
-        vm.drawChart = function() {
-          var margin = {top: 20, right: 0, bottom: 100, left: 80},
-              width = 800 - margin.left - margin.right,
-              height = 600 - margin.top - margin.bottom;
+        // date sorting algorithm
+        vm.dateList.sort(function(a, b) {
+          return new Date(a.date) - new Date(b.date);
+        });
 
-          // Parse the date / time
-          var	parseDate = d3.time.format("%Y-%m-%d").parse;
+        // increment numbers of words for each date
+        // to show how much the increase in words are
+  			for (var i = 1, j = vm.dateList.length; i < j ;i++) {
+          vm.dateList[i].number += vm.dateList[i-1].number;
+        }
+  		};
 
-          var x = d3.scale.ordinal().rangeRoundBands([0, width], .15);
+      // Draws d3 chart
+      vm.drawChart = function() {
+        var w = window.innerWidth > 960 ? 960: window.innerWidth;
+        var svg = d3.select("svg"),
+        margin = {top: 20, right: 50, bottom: 30, left: 50},
+        width = w - margin.left - margin.right,
+        height = +svg.attr("height") - margin.top - margin.bottom;
 
-          var y = d3.scale.linear().range([height, 0]);
+        var x = d3.scaleBand().rangeRound([0, width]).padding(0.2);
 
-          console.log(d3.time.year);
+        var y = d3.scaleLinear().rangeRound([height, 0]);
 
-          var xAxis = d3.svg.axis()
-              .scale(x)
-              .orient("bottom")
-              .ticks(d3.time.months, 3)
-              .tickFormat(d3.time.format("%Y-%m"));
+        var g = svg.append("g")
+          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-          var yAxis = d3.svg.axis()
-              .scale(y)
-              .orient("left")
-              .ticks(10);
+        var div = d3.select("body").append("div")
+          .attr("class", "tooltip")
+          .style("opacity", 0);
 
-          var svg = d3.select("#chart").append("svg")
-              .attr("width", width + margin.left + margin.right)
-              .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-              .attr("transform",
-                    "translate(" + margin.left + "," + margin.top + ")");
+        function renderBar(data) {
 
-          function renderBar(data) {
+          x.domain(data.map(function(d) { return d.age; }));
+          y.domain([0, d3.max(data, function(d) { return d.number; })]);
 
-              data.forEach(function(d) {
-                  d.date = new Date(d.date);
-              });
+          g.append("g")
+              .attr("class", "axis axis--x")
+              .attr("transform", "translate(0," + height + ")")
+              .call(d3.axisBottom(x));
 
-            x.domain(data.map(function(d) { return d.date; }));
-            y.domain([d3.min(data, function(d) { return d.number; }), d3.max(data, function(d) { return d.number; })]);
+          g.append("g")
+              .attr("class", "axis axis--y")
+              .call(d3.axisLeft(y))
+            .append("text")
+              .attr("transform", "rotate(-90)")
+              .attr("y", 6)
+              .attr("dy", "0.71em")
+              .attr("text-anchor", "end")
+              .text("No. of words");
 
-            svg.append("g")
-                .attr("class", "x axis")
-                .attr("transform", "translate(0," + height + ")")
-                .call(xAxis)
-              .selectAll("text")
-                .style("text-anchor", "end")
-                .attr("dx", "-.8em")
-                .attr("dy", "-.55em")
-                .attr("transform", "rotate(-90)" );
+          g.selectAll(".bar")
+            .data(data)
+            .enter().append("rect")
+              .attr("class", "bar")
+              .attr("x", function(d) { return x(d.age); })
+              .attr("y", function(d) { return y(d.number); })
+              .attr("width", x.bandwidth())
+              .attr("height", function(d) { return height - y(d.number); })
+              .on("mouseover", function(d) {
+               div.transition()
+                 .duration(200)
+                 .style("opacity", .9);
+               div.html(d.age + " months old<br/> speaking<br /> " + d.number + " words")
+                 .style("left", (d3.event.pageX) + "px")
+                 .style("top", (d3.event.pageY - 28) + "px");
+               })
+             .on("mouseout", function(d) {
+               div.transition()
+                 .duration(500)
+                 .style("opacity", 0);
+               });
+        }
 
-            svg.append("g")
-                .attr("class", "y axis")
-                .call(yAxis)
-              .append("text")
-                .attr("transform", "rotate(-90)")
-                .attr("y", 6)
-                .attr("dy", ".71em")
-                .style("text-anchor", "end")
-                .text("Number of words");
-
-            svg.selectAll("bar")
-                .data(data)
-              .enter().append("rect")
-                .style("fill", "steelblue")
-                .attr("x", function(d) { return x(d.date); })
-                .attr("width", x.rangeBand())
-                .attr("y", function(d) { return y(d.number); })
-                .attr("height", function(d) { return height - y(d.number); });
-
-          }
-
-          renderBar(vm.dateList);
-        };
+        renderBar(vm.dateList);
+      };
 		}
 })();
