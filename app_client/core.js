@@ -18,10 +18,6 @@
 					templateUrl: 'word/word.view.html'
 				})
 
-				.when('/goal', {
-					templateUrl: 'goal/goal.view.html'
-				})
-
 				.when('/help', {
 					templateUrl: 'help/help.view.html'
 				})
@@ -39,7 +35,7 @@
 			$rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
 				if ($location.path() === '/word' && !auth.isLoggedIn()) {
 					$location.path('/');
-				} else if ($location.path() === '/goal' && !auth.isLoggedIn()) {
+				} else if ($location.path() === '/chart' && !auth.isLoggedIn()) {
 					$location.path('/');
 				}
 			});
