@@ -9,18 +9,18 @@
 	<div ng-controller="wordCtrl as vm">
 
 		<!-- Tabs WORDS, PHRASES, GUIDE -->
-		<div data-spy="affix" data-offset-top="80" id="sub-menu">
+		<div id="sub-menu">
 			<div class="btn-group btn-group-justified">
-				<a class="btn btn-default btn-menu" ng-class="{'active':vm.showWord}" ng-click="vm.showPane('word');vm.alert('','none')" id="words-btn"><b>WORDS</b></a>
-				<a class="btn btn-default btn-menu" ng-class="{'active':vm.showPhrase}" ng-click="vm.showPane('phrase');vm.alert('','none')" id="phrases-btn"><b>PHRASES</b></a>
-				<a class="btn btn-default btn-menu" ng-class="{'active':vm.showStat}" ng-click="vm.showPane('stat');vm.checkMatch();vm.alert('','none')" id="guide-btn"><b>GUIDE</b></a>
+				<a class="btn btn-default btn-menu" ng-class="{'active':vm.showWord}" ng-click="vm.showPane('word');vm.alert('','none')" id="words-btn"><i class="fa fa-file-word-o"></i> &nbsp;Words</a>
+				<a class="btn btn-default btn-menu" ng-class="{'active':vm.showPhrase}" ng-click="vm.showPane('phrase');vm.alert('','none')" id="phrases-btn"><i class="fa fa-align-left"> </i> &nbsp;Phrases</a>
+				<a class="btn btn-default btn-menu" ng-class="{'active':vm.showStat}" ng-click="vm.showPane('stat');vm.checkMatch();vm.alert('','none')" id="guide-btn"><i class="fa fa-hand-o-up"> </i> &nbsp;Guide</a>
 			</div>
 		</div>
 
 		<!-- Alert Message -->
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-md-12 text-center">
+				<div class="col-md-12 text-center alerts">
 
 					<div class="alert alert-danger" ng-show="vm.alertMsg">{{ vm.alertMsg }}
 					</div>
@@ -30,6 +30,7 @@
 				</div>
 			</div>
 		</div>
+
 		<div class="container">
 
 			<!-- Add Word Modal -->
@@ -38,7 +39,7 @@
 			    <div class="modal-content">
 			      <div class="modal-header">
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			        <h4 class="modal-title" id="myModalLabel">ADD WORD / PHRASE</h4>
+			        <h4 class="modal-title text-center" id="myModalLabel">ADD WORD / PHRASE</h4>
 			      </div>
 			      <div class="modal-body">
 			      <form class="well form">
@@ -58,20 +59,20 @@
 								<label>Date added</label>
 								<input type="date" ng-model="vm.new.date_added" class="form-control" placeholder="YYYY/MM/DD">
 							</div>
-							<button type="submit" class="btn btn-success" ng-click="vm.showAddForm = false; vm.alertMsg = false;vm.addWord(vm.new.word);vm.wordFilter = '';vm.phraseFilter = ''" data-dismiss="modal">SUBMIT</button>
+							<button type="submit" class="btn btn-default" ng-click="vm.showAddForm = false; vm.alertMsg = false;vm.addWord(vm.new.word);vm.wordFilter = '';vm.phraseFilter = ''" data-dismiss="modal">SUBMIT</button>
 							<a class="btn btn-default" data-dismiss="modal">CANCEL</a>
 						</form>
 			      </div>
 			    </div>
 			  </div>
 			</div>
+		</div>
+		<!-- Add Button for displaying Modal -->
+		<div class="text-center btn-success" ng-click="vm.logWords()" data-toggle="modal" data-target="#myModal" id="add-btn" type="button">
+			ADD
+		</div>
 
-			<!-- Add Button for displaying Modal -->
-			<div class="text-center">
-				<button ng-click="vm.logWords()" class="btn btn-success" data-toggle="modal" data-target="#myModal" id="add-btn" type="button">ADD</button>
-			</div>
-
-
+		<div class="container">
 			<!-- WORDS panel -->
 		<div ng-show="vm.showWord">
 			<div class="row" ng-init="vm.wordSort = '-date-added'">
@@ -81,7 +82,7 @@
 							<div class="word-search">
 						      <input type="text" class="form-control" ng-model="vm.wordFilter" placeholder="&#xF002;" style="font-family:Arial, FontAwesome" />
 					    </div>
-				 Sort by : <a href="" ng-click="vm.wordSort = '-date_added'" class="btn btn-xs btn-primary">date added</a>, <a href="" ng-click="vm.wordSort = 'word'" class="btn btn-xs btn-primary">alphabetical</a>
+				 sort:<a href="" ng-click="vm.wordSort = '-date_added'" class="btn btn-xs btn-primary">date added</a><a href="" ng-click="vm.wordSort = 'word'" class="btn btn-xs btn-primary">alphabetical</a>
 					</div>
 					<div class="col-md-7">
 						<h3><span class="length-window"><span ng-hide="vm.loadingMsg">{{ vm.words.length }}</span><span ng-show="vm.loadingMsg">Loading...</span></span> total words</h3>
@@ -92,10 +93,10 @@
 
 			<div class="row" id="words-panel">
 				<!-- WORD Cells -->
-				<div class="col-md-3" ng-repeat="w in vm.words | orderBy : vm.wordSort | filter : vm.wordFilter ">
+				<div class="col-xs-12 col-sm-6 col-md-3" ng-repeat="w in vm.words | orderBy : vm.wordSort | filter : vm.wordFilter ">
 					<div class="well phrases" ng-click="editWord = true" ng-hide="editWord" ng-init="editWord = false" ng-class="{ 'resolved': !w.status, 'unresolved': w.status }">
 						<h3>{{ w.word }}</h3><br>
-						{{ w.sound }}
+						<p>{{ w.sound }}</p>
 					</div>
 					<div class="well" ng-show="editWord">
 						<form class="form" ng-submit="vm.editWord(w)">
@@ -131,7 +132,7 @@
 						<div class="word-search">
 								<input type="text" class="form-control" ng-model="vm.phraseFilter" placeholder="&#xF002;" style="font-family:Arial, FontAwesome" />
 						</div>
-						Sort by : <a href="" ng-click="vm.phraseSort = '-date_added'" class="btn btn-xs btn-primary">date added</a>, <a href="" ng-click="vm.phraseSort = 'phrase'" class="btn btn-xs btn-primary">alphabetical</a>
+						sort:<a href="" ng-click="vm.phraseSort = '-date_added'" class="btn btn-xs btn-primary">date added</a><a href="" ng-click="vm.phraseSort = 'phrase'" class="btn btn-xs btn-primary">alphabetical</a>
 					</div>
 					<div class="col-md-7">
 						<h3><span class="length-window">{{ vm.phrases.length }}</span> total phrases<span ng-show="vm.addPhraseMsg" class="addMsg"></h3>
@@ -141,7 +142,7 @@
 				<div class="col-md-3" ng-repeat="p in vm.phrases | orderBy : vm.phraseSort | filter : vm.phraseFilter">
 					<div class="well phrases" ng-click="editPhrase = true" ng-hide="editPhrase" ng-init="editPhrase = false" ng-class="{ 'resolved': !p.status, 'unresolved': p.status }">
 						<h3>{{ p.phrase }}</h3><br>
-						{{ p.sound }}
+						<p>{{ p.sound }}</p>
 					</div>
 					<div class="well" ng-show="editPhrase">
 						<form class="form" ng-submit="vm.editPhrase(p)">
@@ -170,8 +171,8 @@
 			</div>
 
 			<!-- GUIDE (Stats) panel -->
-			<div class="row" ng-show="vm.showStat" ng-init="vm.order = 'category'">
-				<div class="col-md-6 col-md-offset-3">
+			<div class="row clearfix" ng-show="vm.showStat" ng-init="vm.order = 'category'">
+				<div class="col-md-6 col-md-offset-3" id="guide">
 					<ul class="list-group">
 						<li ng-repeat="(k,g) in vm.guideObj" class="list-group-item" ng-click="showGroup = !showGroup">
 							<h2>{{ k }} <span class="pull-right">
